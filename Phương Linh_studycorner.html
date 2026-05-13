@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StarPath – Ôn thi THPTQG Tiếng Anh</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef2f8;--sidebar:#ffffff;--card:#ffffff;--card2:#f4f7fb;
+  --border:#dde3ed;--gold:#d97706;--sky:#0284c7;--rose:#e11d48;
+  --violet:#7c3aed;--green:#059669;--text:#0f172a;--muted:#64748b;
+  --gold-glow:0 0 16px rgba(217,119,6,.18);
+  --sky-glow:0 0 16px rgba(2,132,199,.18);
+  --shadow:0 2px 12px rgba(15,23,42,.07);
+  --shadow-md:0 4px 20px rgba(15,23,42,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;overflow:hidden}
+/* ─── SCROLLBARS ─── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:#f0f4f8}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+/* ─── LAYOUT ─── */
+#app{display:flex;height:100vh;overflow:hidden}
+/* ─── SIDEBAR ─── */
+#sidebar{width:225px;min-width:225px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;z-index:10;flex-shrink:0;box-shadow:2px 0 8px rgba(15,23,42,.04)}
+.sb-logo{padding:22px 20px 16px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#0f172a,#1e3a5f)}
+.sb-logo h1{font-family:'Barlow Condensed',sans-serif;font-size:23px;font-weight:800;letter-spacing:1px;color:#fff}
+.sb-logo h1 span{background:linear-gradient(90deg,#fbbf24,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sb-logo p{font-size:10px;color:rgba(255,255,255,.5);margin-top:3px;letter-spacing:2px;text-transform:uppercase}
+.sb-user{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border);background:#fafbfd}
+.sb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#e11d48);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(245,158,11,.3)}
+.sb-username{font-size:13px;font-weight:600;line-height:1.2;color:var(--text)}
+.sb-role{font-size:11px;color:var(--muted)}
+.sb-nav{padding:12px 10px;flex:1}
+.nav-section{font-size:10px;letter-spacing:2px;color:#94a3b8;text-transform:uppercase;padding:8px 10px 4px;font-weight:700}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;transition:all .2s;font-size:13.5px;font-weight:500;color:var(--muted);margin-bottom:2px;border:1px solid transparent}
+.nav-item:hover{background:#f0f5ff;color:var(--sky)}
+.nav-item.active{background:linear-gradient(135deg,#eff6ff,#e0f2fe);color:var(--sky);border-color:#bfdbfe;font-weight:600}
+.nav-item .ni{width:18px;text-align:center;font-size:15px}
+.nav-item .nb{font-size:11px;background:var(--rose);color:#fff;padding:1px 6px;border-radius:10px;margin-left:auto;font-weight:700}
+/* ─── MAIN ─── */
+#main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+/* ─── TOP BAR ─── */
+.topbar{padding:13px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);position:sticky;top:0;z-index:5;flex-shrink:0;box-shadow:0 1px 4px rgba(15,23,42,.06)}
+.topbar-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.5px;color:var(--text)}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.breadcrumb span{color:var(--muted)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-family:'Barlow',sans-serif;font-weight:600;font-size:13px;transition:all .2s;text-decoration:none}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-gold:hover{background:#b45309;box-shadow:var(--gold-glow)}
+.btn-outline{background:#fff;border:1.5px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--sky);color:var(--sky)}
+.btn-sky{background:#e0f2fe;border:1.5px solid #bae6fd;color:var(--sky)}
+.btn-sky:hover{background:#bae6fd}
+.btn-rose{background:#fff0f3;border:1.5px solid #fecdd3;color:var(--rose)}
+.btn-violet{background:#f5f3ff;border:1.5px solid #ddd6fe;color:var(--violet)}
+.btn-green{background:#ecfdf5;border:1.5px solid #a7f3d0;color:var(--green)}
+.btn-sm{padding:5px 12px;font-size:12px}
+/* ─── PAGE CONTENT ─── */
+#page{flex:1;padding:24px 28px;overflow-y:auto}
+/* ─── HERO ─── */
+.hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0c4a6e 100%);border-radius:18px;padding:30px 34px;margin-bottom:24px;position:relative;overflow:hidden;box-shadow:var(--shadow-md)}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(251,191,36,.2),transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-20px;width:200px;height:200px;background:radial-gradient(circle,rgba(96,165,250,.15),transparent 70%);pointer-events:none}
+.hero h2{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px;color:#fff}
+.hero h2 span{color:#fbbf24}
+.hero p{color:rgba(255,255,255,.65);font-size:14px;max-width:500px}
+.hero-stats{display:flex;gap:24px;margin-top:20px}
+.stat-item{text-align:center}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:700;color:#60a5fa}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px}
+/* ─── GRID ─── */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+/* ─── CARDS ─── */
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:20px;transition:all .22s;cursor:pointer;box-shadow:var(--shadow)}
+.card:hover{border-color:#93c5fd;transform:translateY(-3px);box-shadow:0 10px 28px rgba(2,132,199,.12)}
+.card-icon{font-size:28px;margin-bottom:10px}
+.card-title{font-weight:700;font-size:15px;margin-bottom:4px;color:var(--text)}
+.card-sub{font-size:12px;color:var(--muted)}
+.card-count{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:6px;margin-top:8px;font-weight:600}
+.cc-gold{background:#fef3c7;color:#92400e}
+.cc-sky{background:#e0f2fe;color:#0369a1}
+.cc-rose{background:#fff0f3;color:#be123c}
+.cc-violet{background:#f5f3ff;color:#6d28d9}
+.cc-green{background:#ecfdf5;color:#047857}
+/* ─── SECTION HEADER ─── */
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-hdr h3{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;letter-spacing:.5px;color:var(--text)}
+/* ─── SPEAK BUTTON ─── */
+.speak-btn{background:none;border:none;cursor:pointer;font-size:15px;padding:3px 5px;border-radius:6px;transition:all .15s;color:var(--muted);line-height:1;vertical-align:middle}
+.speak-btn:hover{background:#e0f2fe;color:var(--sky);transform:scale(1.1)}
+.speak-btn.speaking{color:var(--sky);animation:pulse .6s infinite alternate}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.2)}}
+/* ─── WORD TABLE ─── */
+.word-table{width:100%;border-collapse:separate;border-spacing:0 5px}
+.word-table th{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;font-weight:700;background:transparent}
+.word-row{background:var(--card);cursor:default;transition:all .18s;box-shadow:0 1px 4px rgba(15,23,42,.05)}
+.word-row:hover{box-shadow:0 4px 14px rgba(2,132,199,.1);transform:translateX(2px)}
+.word-row td{padding:11px 12px;font-size:13.5px;border-top:1.5px solid var(--border);border-bottom:1.5px solid var(--border)}
+.word-row td:first-child{border-left:1.5px solid var(--border);border-radius:10px 0 0 10px;border-left-color:#bfdbfe}
+.word-row td:last-child{border-right:1.5px solid var(--border);border-radius:0 10px 10px 0}
+.word-text{font-weight:700;color:#0369a1;font-size:14px}
+.word-pron{font-size:11px;color:#7c3aed;margin-top:2px;font-family:'Courier New',monospace;font-style:italic}
+.word-type{font-size:10px;padding:2px 7px;border-radius:5px;background:#f5f3ff;color:#7c3aed;font-weight:700}
+.word-syn{font-size:11px;color:#047857;font-style:italic}
+.word-ant{font-size:11px;color:#be123c;font-style:italic}
+/* ─── PROGRESS BAR ─── */
+.progress-bar{height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--sky),#7c3aed);border-radius:3px;transition:width .5s}
+/* ─── STUDY MODES ─── */
+.mode-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.study-wrap{min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+/* FLASHCARD */
+.flashcard-wrap{width:100%;max-width:560px;perspective:1000px;margin:0 auto}
+.flashcard{width:100%;height:240px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer;margin-bottom:20px}
+.flashcard.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;border:2px solid}
+.fc-front{background:linear-gradient(135deg,#0f172a,#1e3a5f);border-color:#334155;box-shadow:var(--shadow-md)}
+.fc-back{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#fcd34d;box-shadow:var(--shadow-md);transform:rotateY(180deg)}
+.fc-word{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:700;color:#60a5fa}
+.fc-pron{font-size:14px;color:#94a3b8;margin-top:6px;font-family:'Courier New',monospace;font-style:italic}
+.fc-type{font-size:12px;padding:3px 10px;border-radius:6px;background:rgba(167,139,250,.2);color:#c4b5fd;margin-top:10px}
+.fc-meaning{font-size:22px;font-weight:700;color:#92400e}
+.fc-example{font-size:13px;color:#78716c;margin-top:10px;font-style:italic;max-width:380px}
+.fc-hint{font-size:12px;color:rgba(255,255,255,.35);margin-top:16px}
+.fc-speak{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;margin-top:12px;transition:all .2s;font-family:'Barlow',sans-serif}
+.fc-speak:hover{background:rgba(255,255,255,.22)}
+.fc-nav{display:flex;align-items:center;gap:16px;justify-content:center}
+.fc-counter{font-size:13px;color:var(--muted);font-weight:600}
+/* QUIZ */
+.quiz-q{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:2px solid #bae6fd;border-radius:14px;padding:22px 24px;margin-bottom:16px;font-size:15px;font-weight:600;line-height:1.7;color:var(--text)}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.quiz-opt{background:#fff;border:2px solid var(--border);border-radius:10px;padding:13px 16px;cursor:pointer;transition:all .2s;font-size:13.5px;text-align:left;font-family:'Barlow',sans-serif;color:var(--text);box-shadow:0 1px 4px rgba(15,23,42,.05)}
+.quiz-opt:hover:not(.disabled){border-color:var(--sky);background:#f0f9ff;color:var(--sky)}
+.quiz-opt.correct{border-color:#059669;background:#ecfdf5;color:#047857;font-weight:700}
+.quiz-opt.wrong{border-color:#e11d48;background:#fff0f3;color:#be123c}
+.quiz-opt.disabled{cursor:default;pointer-events:none}
+.quiz-explain{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fcd34d;border-radius:12px;padding:16px;font-size:13px;line-height:1.8;margin-top:12px;display:none;color:#78350f}
+.quiz-explain.show{display:block}
+.quiz-tip{color:#92400e;font-weight:700;display:flex;gap:6px;margin-bottom:6px}
+.quiz-progress{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.qp-text{font-size:13px;color:var(--muted);font-weight:600}
+.score-badge{background:linear-gradient(135deg,var(--gold),#fbbf24);color:#fff;padding:4px 12px;border-radius:20px;font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(217,119,6,.3)}
+/* MATCHING */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.match-col h4{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:700}
+.match-item{background:#fff;border:2px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;transition:all .2s;font-size:13px;margin-bottom:8px;min-height:42px;display:flex;align-items:center;box-shadow:0 1px 4px rgba(15,23,42,.05)}
+.match-item:hover{border-color:var(--sky)}
+.match-item.selected{border-color:var(--gold);background:#fffbeb;color:#92400e;font-weight:600}
+.match-item.matched{border-color:var(--green);background:#ecfdf5;color:#047857;cursor:default;font-weight:600}
+.match-item.wrong-match{border-color:var(--rose);background:#fff0f3;animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+/* GRAMMAR */
+.grammar-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:12px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+.grammar-card:hover{border-color:#93c5fd;box-shadow:0 4px 16px rgba(2,132,199,.1)}
+.grammar-card.open .gc-body{display:block}
+.gc-header{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:15px;color:var(--text)}
+.gc-tag{font-size:10px;padding:2px 8px;border-radius:5px;background:#e0f2fe;color:#0369a1;font-weight:700}
+.gc-body{display:none;margin-top:16px;font-size:13.5px;line-height:1.85;color:#334155;border-top:1.5px dashed #e2e8f0;padding-top:14px}
+.gc-body h4{color:#0369a1;font-size:12px;text-transform:uppercase;letter-spacing:1.2px;margin:14px 0 7px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700}
+.gc-body .rule-box{background:#f0f9ff;border-left:4px solid #0284c7;padding:10px 14px;border-radius:0 10px 10px 0;margin:8px 0;font-size:13px;color:#0c4a6e}
+.gc-body .example-box{background:#fffbeb;border-left:4px solid #d97706;padding:10px 14px;border-radius:0 10px 10px 0;margin:8px 0;font-size:13px;color:#78350f}
+.gc-body .tip-box{background:#fff0f3;border-left:4px solid #e11d48;padding:10px 14px;border-radius:0 10px 10px 0;margin:8px 0;font-size:13px;color:#881337}
+.gc-body code{background:#f5f3ff;color:#6d28d9;padding:1px 6px;border-radius:4px;font-family:monospace;font-size:12px;border:1px solid #ddd6fe}
+/* MISTAKES */
+.mistake-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.mk-num{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.mk-q{font-size:14px;line-height:1.8;margin-bottom:14px;color:var(--text)}
+.mk-q u{color:#0284c7;text-decoration:underline wavy #0284c7;text-underline-offset:3px}
+.mk-q em{color:#d97706;font-style:italic;font-weight:600}
+.mk-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.mk-opt{background:#fafbfd;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:13px;text-align:left;font-family:'Barlow',sans-serif;color:var(--text);transition:all .2s;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.mk-opt:hover:not(.disabled){border-color:var(--sky);background:#f0f9ff}
+.mk-opt.correct{border-color:#059669;background:#ecfdf5;color:#047857;font-weight:700}
+.mk-opt.wrong{border-color:#e11d48;background:#fff0f3;color:#be123c}
+.mk-opt.disabled{cursor:default;pointer-events:none}
+.mk-explain{display:none;margin-top:14px;background:#fffbeb;border:1.5px solid #fcd34d;border-radius:12px;padding:18px;font-size:13px;line-height:1.85;color:#78350f}
+.mk-explain.show{display:block}
+.mk-explain-hdr{display:flex;align-items:center;gap:6px;font-weight:700;color:#92400e;margin-bottom:8px;font-size:14px}
+.mk-tip-hdr{display:flex;align-items:center;gap:6px;font-weight:700;color:#0369a1;margin:12px 0 6px;font-size:14px}
+/* QUOTES */
+.quote-footer{background:linear-gradient(135deg,#fef3c7,#fff7ed);border:2px solid #fcd34d;border-radius:14px;padding:20px 28px;margin-top:28px;margin-bottom:10px;text-align:center;box-shadow:0 2px 12px rgba(217,119,6,.1)}
+.quote-text{font-family:'Playfair Display',serif;font-size:16px;color:#78350f;font-style:italic;line-height:1.7}
+.quote-text::before{content:'"';color:#d97706;font-size:26px;line-height:0;vertical-align:-10px;margin-right:4px}
+.quote-text::after{content:'"';color:#d97706;font-size:26px;line-height:0;vertical-align:-10px;margin-left:4px}
+/* TABS */
+.tabs{display:flex;gap:4px;background:#f1f5f9;border-radius:12px;padding:4px;margin-bottom:20px;width:fit-content;border:1.5px solid var(--border)}
+.tab{padding:7px 16px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:all .2s}
+.tab.active{background:#fff;color:var(--sky);box-shadow:0 2px 8px rgba(15,23,42,.1)}
+/* SEARCH */
+.search-bar{position:relative;margin-bottom:16px}
+.search-bar input{width:100%;background:#fff;border:2px solid var(--border);border-radius:12px;padding:10px 14px 10px 40px;color:var(--text);font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;box-shadow:var(--shadow)}
+.search-bar input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(2,132,199,.1)}
+.search-bar input::placeholder{color:var(--muted)}
+.search-bar::before{content:'🔍';position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
+/* TAG PILLS */
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.tag{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid;transition:all .2s}
+.tag.gold{border-color:#fcd34d;color:#92400e;background:#fffbeb}
+.tag.gold.active,.tag.gold:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+/* RESULTS SCREEN */
+.result-wrap{text-align:center;padding:40px}
+.result-emoji{font-size:64px;margin-bottom:16px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15))}
+.result-score{font-family:'Barlow Condensed',sans-serif;font-size:60px;font-weight:800;color:var(--sky)}
+.result-msg{color:var(--muted);font-size:15px;margin-top:8px}
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:#fff;border:2px solid #059669;border-radius:12px;padding:12px 18px;font-size:13px;color:#047857;z-index:100;opacity:0;transition:opacity .3s;pointer-events:none;font-weight:600;box-shadow:0 4px 16px rgba(5,150,105,.2)}
+#toast.show{opacity:1}
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);cursor:pointer;font-size:13px;font-weight:700;padding:7px 14px;margin-bottom:16px;transition:all .2s;background:#fff;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif}
+.back-btn:hover{color:var(--sky);border-color:#93c5fd;background:#f0f9ff}
+/* ANIMATE */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .28s ease forwards}
+/* IDIOM TABLE */
+.idiom-row .idiom-text{color:#6d28d9;font-weight:700}
+/* RESPONSIVE */
+@media(max-width:768px){
+  #sidebar{width:185px;min-width:185px}
+  .grid-3,.grid-4{grid-template-columns:repeat(2,1fr)}
+  .quiz-options,.mk-opts{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sb-logo">
+      <h1>⭐ <span>StarPath</span></h1>
+      <p>THPTQG English</p>
+    </div>
+    <div class="sb-user">
+      <div class="sb-avatar">PL</div>
+      <div>
+        <div class="sb-username">Phương Linh</div>
+        <div class="sb-role">Học sinh lớp 12</div>
+      </div>
+    </div>
+    <div class="sb-nav">
+      <div class="nav-section">Khám phá</div>
+      <div class="nav-item active" onclick="navigate('home')" id="nav-home"><span class="ni">🏠</span> Trang chủ</div>
+
+      <div class="nav-section">Học liệu</div>
+      <div class="nav-item" onclick="navigate('vocab')" id="nav-vocab"><span class="ni">📖</span> Từ vựng chủ đề</div>
+      <div class="nav-item" onclick="navigate('phrasal')" id="nav-phrasal"><span class="ni">⚡</span> Phrasal Verbs</div>
+      <div class="nav-item" onclick="navigate('idioms')" id="nav-idioms"><span class="ni">✨</span> Idioms</div>
+      <div class="nav-item" onclick="navigate('advanced')" id="nav-advanced"><span class="ni">🚀</span> Từ vựng nâng cao</div>
+
+      <div class="nav-section">Luyện tập</div>
+      <div class="nav-item" onclick="navigate('grammar')" id="nav-grammar"><span class="ni">📐</span> Ngữ pháp</div>
+      <div class="nav-item" onclick="navigate('mistakes')" id="nav-mistakes"><span class="ni">🎯</span> Luyện lỗi sai <span class="nb">${MISTAKES.length}</span></div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div id="main">
+    <div class="topbar">
+      <div>
+        <div id="topbar-title" class="topbar-title">Trang chủ</div>
+        <div id="breadcrumb" class="breadcrumb"></div>
+      </div>
+      <div class="topbar-right"></div>
+    </div>
+    <div id="page"></div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════
+//  SPEECH SYNTHESIS
+// ═══════════════════════════════════════════
+let currentUtt = null;
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) { showToast('Trình duyệt chưa hỗ trợ đọc audio.'); return; }
+  // Cancel if same word is speaking
+  if (currentUtt && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.speak-btn').forEach(b=>b.classList.remove('speaking'));
+    currentUtt = null;
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  utter.rate = 0.82;
+  utter.pitch = 1.05;
+  // Try to pick a natural English voice
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v => v.lang === 'en-US' && (v.name.includes('Samantha') || v.name.includes('Google') || v.name.includes('Karen') || v.name.includes('Alex')))
+                 || voices.find(v => v.lang.startsWith('en'));
+  if (preferred) utter.voice = preferred;
+  if (btn) { btn.classList.add('speaking'); currentUtt = utter; }
+  utter.onend = () => { document.querySelectorAll('.speak-btn').forEach(b=>b.classList.remove('speaking')); currentUtt = null; };
+  utter.onerror = () => { document.querySelectorAll('.speak-btn').forEach(b=>b.classList.remove('speaking')); currentUtt = null; };
+  window.speechSynthesis.speak(utter);
+}
+// Preload voices
+if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices(); }
+
+
+
+const QUOTES = [
+  "Không có một đêm thành danh, chỉ có bách luyện thành thép.",
+  "Bao đêm đèn sách rồi sẽ đổi thành một tương lai rực rỡ.",
+  "Mười hai năm khổ luyện, đổi lấy một mùa hè thật rực rỡ.",
+  "Mong cho tương lai tiền đồ như gấm.",
+  "Gặp câu dễ không chủ quan, gặp câu khó không nản chí.",
+  "Hành trình dài đã gần tới đích.",
+  "Đừng nghi ngờ bản thân – em giỏi hơn em nghĩ.",
+  "Cá chép vượt long môn, công danh thành chính quả.",
+  "Thanh xuân hữu mộng, kim nhật thành danh.",
+  "Mực đậm viết tương lai, bút son đề tên bảng vàng.",
+  "Chúc em đề vừa sức, kiến thức vừa đủ, tinh thần thật vững vàng.",
+];
+
+const VOCAB_TOPICS = [
+  {id:'edu',name:'Giáo dục',emoji:'📚',color:'sky',
+   words:[
+    {w:'Curriculum',pr:'/kəˈrɪkjʊləm/',type:'n',vi:'Chương trình giảng dạy',syn:['syllabus','course of study'],ant:[],ex:'The curriculum includes both academic and vocational subjects.'},
+    {w:'Didactic',pr:'/daɪˈdæktɪk/',type:'adj',vi:'Có tính giáo dục, giáo huấn',syn:['instructive','edifying'],ant:['uneducational','informal'],ex:'The lecture was very didactic and easy to follow.'},
+    {w:'Pedagogy',pr:'/ˈpedəɡɒdʒi/',type:'n',vi:'Phương pháp sư phạm',syn:['teaching method','instruction'],ant:[],ex:'Modern pedagogy emphasizes active learning.'},
+    {w:'Retention',pr:'/rɪˈtenʃn/',type:'n',vi:'Sự ghi nhớ, lưu giữ',syn:['preservation','memory retention'],ant:['forgetfulness','loss'],ex:'Good sleep improves information retention.'},
+    {w:'Tuition',pr:'/tjuːˈɪʃn/',type:'n',vi:'Học phí',syn:['fees','schooling costs'],ant:[],ex:'University tuition has risen sharply in recent years.'},
+    {w:'Proficiency',pr:'/prəˈfɪʃnsi/',type:'n',vi:'Sự thành thạo, tinh thông',syn:['expertise','competence','skill'],ant:['incompetence','inability'],ex:'She demonstrated proficiency in three languages.'},
+    {w:'Vocational',pr:'/vəˈkeɪʃənl/',type:'adj',vi:'Thuộc về hướng nghiệp, dạy nghề',syn:['occupational','professional'],ant:['academic','general'],ex:'Vocational training helps students find jobs quickly.'},
+    {w:'Literacy',pr:'/ˈlɪtərəsi/',type:'n',vi:'Sự biết chữ, năng lực đọc viết',syn:['reading/writing ability'],ant:['illiteracy','ignorance'],ex:'Literacy rates have improved significantly worldwide.'},
+    {w:'Scholarship',pr:'/ˈskɒləʃɪp/',type:'n',vi:'Học bổng',syn:['grant','fellowship','bursary'],ant:[],ex:'She won a scholarship to study abroad.'},
+    {w:'Plagiarism',pr:'/ˈpleɪdʒiərɪzəm/',type:'n',vi:'Sự đạo văn',syn:['copying','piracy'],ant:['originality','authenticity'],ex:'Plagiarism can result in expulsion from school.'},
+   ],
+   phrasal:[
+    {pv:'Cram for',vi:'Học nhồi nhét, học gấp',ex:'I need to cram for the final exam all night.'},
+    {pv:'Fall behind (with)',vi:'Bị tụt lại phía sau (bài vở)',ex:'If you skip class, you\'ll fall behind with your assignments.'},
+    {pv:'Go over',vi:'Xem xét, ôn lại',ex:'Let\'s go over the answers one more time.'},
+    {pv:'Leaf through',vi:'Lướt qua, giở qua loa',ex:'She leafed through the textbook before the test.'},
+    {pv:'Brush up on',vi:'Ôn lại, trau dồi lại',ex:'I need to brush up on my English grammar.'},
+    {pv:'Drop out (of)',vi:'Bỏ học dang dở',ex:'He decided to drop out of college to start a business.'},
+    {pv:'Read up on',vi:'Nghiên cứu, đọc kỹ về',ex:'You should read up on the topic before the seminar.'},
+    {pv:'Hand in',vi:'Nộp bài',ex:'Please hand in your essays by Friday.'},
+    {pv:'Copy out',vi:'Chép lại',ex:'The teacher made him copy out the entire page.'},
+    {pv:'Take in',vi:'Tiếp thu, hấp thụ',ex:'It was a boring lecture, and I couldn\'t take in anything.'},
+   ],
+   idioms:[
+    {id:'Hit the books',vi:'Học tập chăm chỉ',ex:'I have to hit the books tonight.'},
+    {id:'Burn the midnight oil',vi:'Thức khuya học/làm bài',ex:'She burned the midnight oil to prepare for the exam.'},
+    {id:'A for effort',vi:'Khen ngợi sự cố gắng',ex:'His project wasn\'t great, but I\'ll give him an A for effort.'},
+    {id:'Learn the ropes',vi:'Học cách làm việc',ex:'It took me a month to learn the ropes at the new job.'},
+    {id:'Eager beaver',vi:'Người hăng hái, tham việc',ex:'The new intern is a real eager beaver.'},
+    {id:'Cover a lot of ground',vi:'Học nhiều nội dung',ex:'We covered a lot of ground in history class today.'},
+    {id:'A quick learner',vi:'Người học nhanh',ex:'She is a quick learner and picks up new software easily.'},
+    {id:'Get the hang of',vi:'Nắm được cách làm',ex:'After a few lessons, I started getting the hang of driving.'},
+    {id:'Make the grade',vi:'Đạt tiêu chuẩn',ex:'He tried hard but didn\'t make the grade for the team.'},
+    {id:'Do something by heart',vi:'Học thuộc lòng',ex:'He learned the poem by heart in one day.'},
+   ]
+  },
+  {id:'env',name:'Môi trường',emoji:'🌿',color:'green',
+   words:[
+    {w:'Biodiversity',pr:'/ˌbaɪəʊdaɪˈvɜːsəti/',type:'n',vi:'Đa dạng sinh học',syn:['ecological diversity'],ant:['monoculture'],ex:'The rainforest supports incredible biodiversity.'},
+    {w:'Ecosystem',pr:'/ˈiːkəʊsɪstəm/',type:'n',vi:'Hệ sinh thái',syn:['biome','habitat','environment'],ant:[],ex:'Human activity threatens fragile ecosystems worldwide.'},
+    {w:'Deforestation',pr:'/diːˌfɒrɪˈsteɪʃn/',type:'n',vi:'Nạn phá rừng',syn:['forest clearing','logging'],ant:['reforestation','afforestation'],ex:'Deforestation is a major driver of climate change.'},
+    {w:'Depletion',pr:'/dɪˈpliːʃn/',type:'n',vi:'Sự cạn kiệt (tài nguyên)',syn:['exhaustion','reduction'],ant:['renewal','restoration'],ex:'The depletion of fossil fuels is a global concern.'},
+    {w:'Emissions',pr:'/ɪˈmɪʃnz/',type:'n',vi:'Khí thải',syn:['exhaust','discharge','pollution'],ant:['absorption'],ex:'Carbon emissions must be reduced urgently.'},
+    {w:'Sustainable',pr:'/səˈsteɪnəbl/',type:'adj',vi:'Bền vững',syn:['renewable','green','eco-friendly'],ant:['unsustainable','wasteful'],ex:'We need more sustainable farming practices.'},
+    {w:'Conservation',pr:'/ˌkɒnsəˈveɪʃn/',type:'n',vi:'Sự bảo tồn',syn:['preservation','protection'],ant:['destruction','neglect'],ex:'Wildlife conservation is essential for future generations.'},
+    {w:'Toxic',pr:'/ˈtɒksɪk/',type:'adj',vi:'Độc hại',syn:['poisonous','harmful'],ant:['safe','harmless'],ex:'Toxic chemicals contaminated the river.'},
+    {w:'Irreversible',pr:'/ˌɪrɪˈvɜːsəbl/',type:'adj',vi:'Không thể đảo ngược',syn:['permanent','unalterable'],ant:['reversible','temporary'],ex:'Climate damage may become irreversible.'},
+    {w:'Biodegradable',pr:'/ˌbaɪəʊdɪˈɡreɪdəbl/',type:'adj',vi:'Có thể phân hủy sinh học',syn:['compostable','eco-friendly'],ant:['non-biodegradable'],ex:'Biodegradable packaging reduces plastic waste.'},
+   ],
+   phrasal:[
+    {pv:'Die out',vi:'Tuyệt chủng, biến mất',ex:'Many species will die out if we don\'t act now.'},
+    {pv:'Wipe out',vi:'Quét sạch, phá hủy toàn bộ',ex:'The tsunami wiped out entire coastal villages.'},
+    {pv:'Use up',vi:'Sử dụng cạn kiệt',ex:'We are rapidly using up the Earth\'s natural resources.'},
+    {pv:'Cut down on',vi:'Cắt giảm (việc sử dụng)',ex:'We must cut down on our carbon footprint.'},
+    {pv:'Throw away',vi:'Vứt bỏ',ex:'Don\'t throw away plastic bottles; recycle them.'},
+    {pv:'Dispose of',vi:'Xử lý (rác thải)',ex:'Toxic waste must be carefully disposed of.'},
+    {pv:'Dry up',vi:'Khô cạn',ex:'The river dried up during the drought.'},
+    {pv:'Heat up',vi:'Làm nóng lên',ex:'Factories are heating up the atmosphere.'},
+    {pv:'Phase out',vi:'Loại bỏ dần',ex:'The government plans to phase out single-use plastics.'},
+    {pv:'Clean up',vi:'Dọn dẹp sạch sẽ',ex:'Volunteers gathered to clean up the beach after the oil spill.'},
+   ],
+   idioms:[
+    {id:'Tip of the iceberg',vi:'Phần nổi của vấn đề lớn hơn',ex:'Pollution is just the tip of the iceberg of climate change.'},
+    {id:'Raising awareness',vi:'Nâng cao nhận thức',ex:'The campaign aims at raising awareness about plastic pollution.'},
+    {id:'Vicious circle',vi:'Vòng luẩn quẩn',ex:'Overuse of air conditioning creates a vicious circle of energy consumption.'},
+    {id:'Nip something in the bud',vi:'Ngăn chặn từ trong trứng nước',ex:'It\'s best to nip environmental degradation in the bud.'},
+    {id:'Break new ground',vi:'Bắt đầu điều gì đó đột phá',ex:'Scientists are breaking new ground in renewable energy.'},
+    {id:'A drop in the ocean',vi:'Hạt cát giữa sa mạc',ex:'Recycling one can is a drop in the ocean compared to total waste.'},
+    {id:'Run out of steam',vi:'Cạn năng lượng, mất động lực',ex:'The movement to save the forest has run out of steam.'},
+    {id:'Once in a blue moon',vi:'Hiếm khi xảy ra',ex:'Such a severe flood happens once in a blue moon.'},
+    {id:'Down to earth',vi:'Thực tế, không viển vông',ex:'She is very down to earth about what we can do to help.'},
+    {id:'Make a mountain out of a molehill',vi:'Làm to chuyện',ex:'I agree it\'s a problem, but don\'t make a mountain out of a molehill.'},
+   ]
+  },
+  {id:'tech',name:'Công nghệ',emoji:'💻',color:'violet',
+   words:[
+    {w:'Innovation',pr:'/ˌɪnəˈveɪʃn/',type:'n',vi:'Sự đổi mới, sáng tạo',syn:['invention','breakthrough'],ant:['stagnation','imitation'],ex:'Technological innovation drives economic growth.'},
+    {w:'Obsolete',pr:'/ˈɒbsəliːt/',type:'adj',vi:'Lỗi thời',syn:['outdated','extinct'],ant:['cutting-edge','modern'],ex:'Fax machines are becoming obsolete.'},
+    {w:'Disruptive',pr:'/dɪsˈrʌptɪv/',type:'adj',vi:'Mang tính đột phá, gây xáo trộn',syn:['groundbreaking','innovative'],ant:['conventional','traditional'],ex:'AI is a disruptive technology reshaping industries.'},
+    {w:'Automation',pr:'/ˌɔːtəˈmeɪʃn/',type:'n',vi:'Sự tự động hóa',syn:['mechanization','computerization'],ant:['manual labor'],ex:'Automation is replacing many factory jobs.'},
+    {w:'Digital literacy',pr:'/ˈdɪdʒɪtl ˈlɪtərəsi/',type:'n',vi:'Kỹ năng sử dụng công nghệ số',syn:['tech-savviness'],ant:['digital illiteracy'],ex:'Digital literacy is essential in the modern world.'},
+    {w:'Surveillance',pr:'/səˈveɪləns/',type:'n',vi:'Sự giám sát',syn:['monitoring','observation'],ant:['privacy','anonymity'],ex:'CCTV surveillance cameras are everywhere in the city.'},
+    {w:'Connectivity',pr:'/kəˌnekˈtɪvəti/',type:'n',vi:'Sự kết nối',syn:['linkage','access'],ant:['isolation','disconnection'],ex:'Improved connectivity has transformed communication.'},
+    {w:'Algorithm',pr:'/ˈælɡərɪðəm/',type:'n',vi:'Thuật toán',syn:['formula','procedure'],ant:[],ex:'The algorithm recommends content based on user behavior.'},
+    {w:'Vulnerability',pr:'/ˌvʌlnərəˈbɪləti/',type:'n',vi:'Điểm yếu (bảo mật)',syn:['weakness','flaw'],ant:['security','strength'],ex:'Hackers exploit software vulnerabilities.'},
+    {w:'Artificial Intelligence',pr:'/ˌɑːtɪˈfɪʃl ɪnˈtelɪdʒəns/',type:'n',vi:'Trí tuệ nhân tạo',syn:['machine learning'],ant:['human intelligence'],ex:'Artificial Intelligence is transforming every industry.'},
+   ],
+   phrasal:[
+    {pv:'Log in/on',vi:'Đăng nhập',ex:'I need my password to log in to the system.'},
+    {pv:'Log out/off',vi:'Đăng xuất',ex:'Always log out of your account on public computers.'},
+    {pv:'Boot up',vi:'Khởi động (máy tính)',ex:'My computer takes ages to boot up in the morning.'},
+    {pv:'Shut down',vi:'Tắt máy',ex:'Don\'t forget to shut down your PC before leaving.'},
+    {pv:'Key in',vi:'Nhập dữ liệu (từ bàn phím)',ex:'Key in your user ID and password.'},
+    {pv:'Back up',vi:'Sao lưu',ex:'It\'s essential to back up your files regularly.'},
+    {pv:'Scroll up/down',vi:'Cuộn lên/xuống',ex:'You can scroll down to see the whole page.'},
+    {pv:'Go down',vi:'Ngừng hoạt động (hệ thống)',ex:'The website went down for two hours yesterday.'},
+    {pv:'Set up',vi:'Cài đặt, thiết lập',ex:'Can you help me set up my new laptop?'},
+    {pv:'Wipe out',vi:'Xóa sạch dữ liệu',ex:'A virus wiped out everything on my hard drive.'},
+   ],
+   idioms:[
+    {id:'A well-oiled machine',vi:'Hệ thống vận hành trơn tru',ex:'With the new software, our team is now a well-oiled machine.'},
+    {id:'It\'s not rocket science',vi:'Không có gì khó hiểu',ex:'Learning to use this app is easy; it\'s not rocket science.'},
+    {id:'Ahead of the curve',vi:'Dẫn đầu xu hướng',ex:'This company is ahead of the curve in AI technology.'},
+    {id:'Cutting-edge',vi:'Hiện đại nhất, tiên tiến nhất',ex:'The lab uses cutting-edge equipment for its research.'},
+    {id:'State-of-the-art',vi:'Hiện đại nhất (trang thiết bị)',ex:'They have a state-of-the-art computer system.'},
+    {id:'The brainchild of someone',vi:'Đứa con tinh thần của ai',ex:'This smartphone is the brainchild of a genius engineer.'},
+    {id:'Back to the drawing board',vi:'Quay lại từ đầu',ex:'The old software failed, so it\'s back to the drawing board.'},
+    {id:'In the dark',vi:'Mù mờ, không biết gì',ex:'Users were left in the dark about the data breach.'},
+    {id:'Go viral',vi:'Lan truyền với tốc độ cực nhanh',ex:'The video of the robot dance went viral overnight.'},
+    {id:'A cog in the machine',vi:'Một bộ phận nhỏ trong hệ thống lớn',ex:'He felt like a cog in the machine at the big tech firm.'},
+   ]
+  },
+  {id:'health',name:'Sức khỏe',emoji:'🏥',color:'rose',
+   words:[
+    {w:'Well-being',pr:'/ˌwel ˈbiːɪŋ/',type:'n',vi:'Tình trạng khỏe mạnh, hạnh phúc',syn:['wellness','health','welfare'],ant:['illness','sickness'],ex:'Exercise contributes to overall well-being.'},
+    {w:'Sedentary',pr:'/ˈsedntrɪ/',type:'adj',vi:'Ít vận động (lối sống)',syn:['inactive','stationary'],ant:['active','energetic'],ex:'A sedentary lifestyle increases health risks.'},
+    {w:'Vaccination',pr:'/ˌvæksɪˈneɪʃn/',type:'n',vi:'Sự tiêm chủng',syn:['immunization','inoculation'],ant:[],ex:'Vaccination prevents the spread of infectious diseases.'},
+    {w:'Malnutrition',pr:'/ˌmælnjuːˈtrɪʃn/',type:'n',vi:'Suy dinh dưỡng',syn:['undernourishment'],ant:['overnutrition','satiety'],ex:'Malnutrition affects millions of children in developing countries.'},
+    {w:'Contagious',pr:'/kənˈteɪdʒəs/',type:'adj',vi:'Dễ lây lan',syn:['infectious','communicable'],ant:['non-infectious','harmless'],ex:'The flu is highly contagious and spreads quickly.'},
+    {w:'Chronic',pr:'/ˈkrɒnɪk/',type:'adj',vi:'Mãn tính (bệnh)',syn:['persistent','long-term'],ant:['acute','temporary'],ex:'He suffers from chronic back pain.'},
+    {w:'Outbreak',pr:'/ˈaʊtbreɪk/',type:'n',vi:'Sự bùng phát (dịch bệnh)',syn:['eruption','spread'],ant:['containment'],ex:'Health officials are monitoring the disease outbreak.'},
+    {w:'Rehabilitate',pr:'/ˌriːəˈbɪlɪteɪt/',type:'v',vi:'Phục hồi chức năng',syn:['restore','heal'],ant:['damage','worsen'],ex:'The patient was rehabilitated after the stroke.'},
+    {w:'Nutrition',pr:'/njuːˈtrɪʃn/',type:'n',vi:'Dinh dưỡng',syn:['nourishment','diet'],ant:['malnutrition'],ex:'Good nutrition is vital for growth and development.'},
+    {w:'Immunity',pr:'/ɪˈmjuːnəti/',type:'n',vi:'Khả năng miễn dịch',syn:['resistance','protection'],ant:['susceptibility','vulnerability'],ex:'Vaccines build immunity against serious diseases.'},
+   ],
+   phrasal:[
+    {pv:'Work out',vi:'Tập thể dục, rèn luyện thân thể',ex:'I try to work out at the gym three times a week.'},
+    {pv:'Get over',vi:'Bình phục, vượt qua (bệnh tật)',ex:'It took me a week to get over the flu.'},
+    {pv:'Come down with',vi:'Mắc bệnh, nhiễm bệnh',ex:'She came down with a cold after the trip.'},
+    {pv:'Pass out',vi:'Ngất xỉu, bất tỉnh',ex:'It was so hot that he passed out on the field.'},
+    {pv:'Throw off',vi:'Khỏi bệnh (cảm nhẹ)',ex:'I had a fever but threw it off with some rest.'},
+    {pv:'Swell up',vi:'Sưng lên, phồng lên',ex:'His ankle swelled up after he fell.'},
+    {pv:'Fight off',vi:'Chống lại (bệnh tật)',ex:'A healthy diet helps you fight off infections.'},
+    {pv:'Build up',vi:'Tăng cường (sức khỏe)',ex:'You need more protein to build up your muscles.'},
+    {pv:'Keep up',vi:'Duy trì (thói quen tốt)',ex:'It\'s challenging to keep up an exercise routine.'},
+    {pv:'Cut out',vi:'Cắt bỏ (thói quen xấu)',ex:'The doctor told him to cut out sugar and smoking.'},
+   ],
+   idioms:[
+    {id:'Fit as a fiddle',vi:'Rất khỏe mạnh, sung sức',ex:'My grandfather is 80 but still fit as a fiddle.'},
+    {id:'Under the weather',vi:'Cảm thấy hơi ốm, mệt mỏi',ex:'I\'m feeling a bit under the weather today.'},
+    {id:'A new lease on life',vi:'Một sự hồi sinh, khởi đầu mới',ex:'The surgery gave her a new lease on life.'},
+    {id:'Back on one\'s feet',vi:'Hồi phục sức khỏe sau ốm',ex:'It took him months to be back on his feet again.'},
+    {id:'Picture of health',vi:'Hình ảnh của người khỏe mạnh',ex:'His son is the picture of health.'},
+    {id:'Out of shape',vi:'Không khỏe, yếu',ex:'He is out of shape after a long illness.'},
+    {id:'As pale as a ghost',vi:'Xanh xao như xác chết',ex:'He was as pale as a ghost after losing so much blood.'},
+    {id:'On its last legs',vi:'Sắp hỏng, suy yếu',ex:'After years of smoking, his lungs are on their last legs.'},
+    {id:'Breathe one\'s last',vi:'Trút hơi thở cuối cùng',ex:'The old man breathed his last peacefully.'},
+    {id:'Come to',vi:'Hồi tỉnh',ex:'She was unconscious for an hour but finally came to.'},
+   ]
+  },
+  {id:'career',name:'Công việc',emoji:'💼',color:'gold',
+   words:[
+    {w:'Prospective',pr:'/prəˈspektɪv/',type:'adj',vi:'Tương lai (có khả năng xảy ra)',syn:['potential','future'],ant:['current','existing'],ex:'Prospective employers will review your CV carefully.'},
+    {w:'Remuneration',pr:'/rɪˌmjuːnəˈreɪʃn/',type:'n',vi:'Thù lao, tiền công',syn:['payment','salary','wage'],ant:[],ex:'The job offers excellent remuneration and benefits.'},
+    {w:'Redundancy',pr:'/rɪˈdʌndənsi/',type:'n',vi:'Sự thôi việc (thiếu việc)',syn:['layoff','dismissal'],ant:['employment','retention'],ex:'The company announced 200 redundancies last week.'},
+    {w:'Perk',pr:'/pɜːk/',type:'n',vi:'Phúc lợi, đãi ngộ (không phải lương)',syn:['benefit','bonus'],ant:['disadvantage'],ex:'Company car is one of the perks of the job.'},
+    {w:'Punctuality',pr:'/ˌpʌŋktʃuˈæləti/',type:'n',vi:'Sự đúng giờ',syn:['timeliness'],ant:['lateness','tardiness'],ex:'Punctuality is highly valued in the workplace.'},
+    {w:'Autonomy',pr:'/ɔːˈtɒnəmi/',type:'n',vi:'Quyền tự chủ, tự quản',syn:['independence','freedom'],ant:['dependence','restriction'],ex:'Employees appreciate having autonomy in their work.'},
+    {w:'Competence',pr:'/ˈkɒmpɪtəns/',type:'n',vi:'Năng lực',syn:['ability','proficiency'],ant:['incompetence'],ex:'Technical competence is required for this position.'},
+    {w:'Resign',pr:'/rɪˈzaɪn/',type:'v',vi:'Từ chức',syn:['quit','step down'],ant:['stay','remain'],ex:'She decided to resign from her position.'},
+    {w:'Mentor',pr:'/ˈmentɔːr/',type:'n/v',vi:'Người hướng dẫn/cố vấn',syn:['advisor','coach'],ant:[],ex:'Having a good mentor accelerates career development.'},
+    {w:'Staff turnover',pr:'/stɑːf ˈtɜːnəʊvər/',type:'n',vi:'Tỷ lệ biến động nhân sự',syn:['employee churn'],ant:['staff retention'],ex:'High staff turnover affects company productivity.'},
+   ],
+   phrasal:[
+    {pv:'Take on',vi:'Nhận (việc/trách nhiệm mới)',ex:'She took on more responsibilities at work.'},
+    {pv:'Apply for',vi:'Nộp đơn xin (việc)',ex:'I have applied for several jobs this month.'},
+    {pv:'Fill out/in',vi:'Điền (đơn từ)',ex:'Please fill in this application form.'},
+    {pv:'Cut back on',vi:'Cắt giảm (chi phí, nhân sự)',ex:'The company had to cut back on staff.'},
+    {pv:'Think over',vi:'Cân nhắc kỹ',ex:'Think over the job offer before refusing it.'},
+    {pv:'Call off',vi:'Hủy bỏ',ex:'The meeting was called off due to the snow.'},
+    {pv:'Get ahead',vi:'Thăng tiến, thành công',ex:'He is ambitious and wants to get ahead.'},
+    {pv:'Hand in notice',vi:'Nộp đơn xin nghỉ việc',ex:'She handed in her resignation yesterday.'},
+    {pv:'Work under',vi:'Làm việc dưới quyền (ai)',ex:'I don\'t like to work under so much pressure.'},
+    {pv:'Live up to',vi:'Đáp ứng (kỳ vọng)',ex:'He failed to live up to the company\'s expectations.'},
+   ],
+   idioms:[
+    {id:'Climb the career ladder',vi:'Thăng tiến trong sự nghiệp',ex:'She is very ambitious and wants to climb the career ladder fast.'},
+    {id:'Get a foothold',vi:'Đặt được chân vào nghề nghiệp khó',ex:'It\'s hard for young people to get a foothold in the job market.'},
+    {id:'Work your socks off',vi:'Làm việc cực kỳ chăm chỉ',ex:'I\'ve been working my socks off to meet the deadline.'},
+    {id:'Go the extra mile',vi:'Nỗ lực hết mình, làm hơn mong đợi',ex:'To succeed, you have to go the extra mile.'},
+    {id:'Pull your weight',vi:'Làm hết trách nhiệm của mình',ex:'Everyone must pull their weight for the project to succeed.'},
+    {id:'Be on the same page',vi:'Có cùng quan điểm',ex:'We need to be on the same page before the presentation.'},
+    {id:'A nine-to-five job',vi:'Công việc văn phòng giờ hành chính',ex:'He doesn\'t want a nine-to-five job; he wants to travel.'},
+    {id:'Blue-collar worker',vi:'Lao động chân tay',ex:'Blue-collar workers are demanding better safety conditions.'},
+    {id:'White-collar worker',vi:'Nhân viên văn phòng',ex:'Most white-collar workers can work from home.'},
+    {id:'Learn the ropes',vi:'Học việc, làm quen công việc',ex:'It took him a month to learn the ropes at the new job.'},
+   ]
+  },
+  {id:'culture',name:'Văn hóa & Du lịch',emoji:'🌍',color:'sky',
+   words:[
+    {w:'Heritage',pr:'/ˈherɪtɪdʒ/',type:'n',vi:'Di sản',syn:['legacy','tradition'],ant:[],ex:'Vietnam has a rich cultural heritage.'},
+    {w:'Indigenous',pr:'/ɪnˈdɪdʒɪnəs/',type:'adj',vi:'Bản địa (người/thực vật)',syn:['native','original'],ant:['foreign','migrant'],ex:'Indigenous communities have unique cultural traditions.'},
+    {w:'Authentic',pr:'/ɔːˈθentɪk/',type:'adj',vi:'Xác thực, đích thực',syn:['genuine','real'],ant:['fake','artificial'],ex:'Tourists seek authentic local experiences.'},
+    {w:'Picturesque',pr:'/ˌpɪktʃəˈresk/',type:'adj',vi:'Đẹp như tranh (phong cảnh)',syn:['scenic','beautiful'],ant:['ugly','dull'],ex:'Ha Long Bay offers picturesque scenery.'},
+    {w:'Cosmopolitan',pr:'/ˌkɒzməˈpɒlɪtən/',type:'adj',vi:'Quốc tế, đa văn hóa',syn:['multicultural','global'],ant:['provincial','rural'],ex:'Singapore is a cosmopolitan city.'},
+    {w:'Exotic',pr:'/ɪɡˈzɒtɪk/',type:'adj',vi:'Lạ mắt, kỳ lạ',syn:['unusual','foreign'],ant:['common','ordinary'],ex:'The market sold exotic spices and fruits.'},
+    {w:'Assimilation',pr:'/əˌsɪmɪˈleɪʃn/',type:'n',vi:'Sự đồng hóa (văn hóa)',syn:['integration'],ant:['segregation','separation'],ex:'Cultural assimilation can cause loss of traditions.'},
+    {w:'Hospitality',pr:'/ˌhɒspɪˈtæləti/',type:'n',vi:'Lòng hiếu khách',syn:['friendliness'],ant:['hostility'],ex:'Vietnamese people are known for their hospitality.'},
+    {w:'Pilgrimage',pr:'/ˈpɪlɡrɪmɪdʒ/',type:'n',vi:'Cuộc hành hương',syn:['religious journey'],ant:[],ex:'Thousands make the pilgrimage to the temple each year.'},
+    {w:'Custom',pr:'/ˈkʌstəm/',type:'n',vi:'Phong tục, tập quán',syn:['tradition','practice'],ant:[],ex:'Local customs should be respected by visitors.'},
+   ],
+   phrasal:[
+    {pv:'Take in',vi:'Đi tham quan, chiêm ngưỡng',ex:'We took in all the famous sights of Rome.'},
+    {pv:'Set off',vi:'Bắt đầu một hành trình',ex:'They set off on their trip early in the morning.'},
+    {pv:'Get away (from)',vi:'Đi nghỉ, thoát khỏi công việc',ex:'You need to get away for a few days to relax.'},
+    {pv:'Stop over',vi:'Dừng chân, quá cảnh',ex:'We stopped over in Dubai for two nights.'},
+    {pv:'Look around',vi:'Đi tham quan, ngắm nghía',ex:'Let\'s look around the old town before lunch.'},
+    {pv:'See off',vi:'Tiễn ai đi xa',ex:'We went to the airport to see him off.'},
+    {pv:'Live it up',vi:'Sống hết mình, hưởng thụ',ex:'We decided to live it up at a luxury resort.'},
+    {pv:'Fit in',vi:'Hòa nhập (vào nền văn hóa mới)',ex:'It was hard for him to fit in with the locals.'},
+    {pv:'Take to',vi:'Trở nên yêu thích (một nơi nào đó)',ex:'He has really taken to the local culture.'},
+    {pv:'Do up',vi:'Tân trang, làm mới (nhà cửa)',ex:'They did up the old church into a museum.'},
+   ],
+   idioms:[
+    {id:'Off the beaten track',vi:'Nơi hẻo lánh, ít người biết đến',ex:'We prefer to go off the beaten track on holidays.'},
+    {id:'When in Rome, do as the Romans do',vi:'Nhập gia tùy tục',ex:'I ate snake soup in Vietnam because when in Rome...'},
+    {id:'Travel light',vi:'Đi du lịch với ít hành lý',ex:'I always prefer to travel light.'},
+    {id:'Break the ice',vi:'Phá vỡ bầu không khí im lặng',ex:'A smile can help break the ice in a new culture.'},
+    {id:'A far cry from',vi:'Khác xa, trái ngược hoàn toàn',ex:'The modern city is a far cry from the quiet village it once was.'},
+    {id:'Get a taste for something',vi:'Bắt đầu ưa thích (món ăn/văn hóa)',ex:'He soon got a taste for the local street food.'},
+    {id:'Travel in style',vi:'Du lịch sang trọng, đẳng cấp',ex:'They always travel in style, flying first class.'},
+    {id:'To each their own',vi:'Mỗi người một sở thích',ex:'I don\'t like pop music, but to each their own.'},
+    {id:'Learn the hard way',vi:'Học qua trải nghiệm cay đắng',ex:'She learned the hard way not to trust strangers.'},
+    {id:'Go places',vi:'Đi khắp nơi, du lịch nhiều',ex:'He is passionate and wants to go places before settling down.'},
+   ]
+  },
+  {id:'family',name:'Gia đình & Xã hội',emoji:'👨‍👩‍👧',color:'rose',
+   words:[
+    {w:'Nurture',pr:'/ˈnɜːtʃər/',type:'v/n',vi:'Nuôi dưỡng, chăm sóc',syn:['raise','foster','cultivate'],ant:['neglect','abandon'],ex:'Parents nurture their children\'s development.'},
+    {w:'Bond',pr:'/bɒnd/',type:'n',vi:'Mối quan hệ gắn bó',syn:['connection','attachment'],ant:['separation','estrangement'],ex:'The bond between siblings is very strong.'},
+    {w:'Upbringing',pr:'/ˈʌpˌbrɪŋɪŋ/',type:'n',vi:'Sự nuôi dạy (cách giáo dục từ nhỏ)',syn:['rearing','parenting'],ant:[],ex:'Her upbringing instilled strong values in her.'},
+    {w:'Generational gap',pr:'/ˌdʒenəˈreɪʃənl ɡæp/',type:'n',vi:'Khoảng cách thế hệ',syn:['generation gap'],ant:['harmony','understanding'],ex:'The generational gap causes misunderstandings in families.'},
+    {w:'Cohesion',pr:'/kəʊˈhiːʒn/',type:'n',vi:'Sự gắn kết (xã hội, gia đình)',syn:['unity','solidarity'],ant:['division','discord'],ex:'Social cohesion is important for community stability.'},
+    {w:'Marginalized',pr:'/ˈmɑːdʒɪnəlaɪzd/',type:'adj',vi:'Bị gạt ra ngoài rìa xã hội',syn:['disadvantaged','underprivileged'],ant:['privileged','mainstream'],ex:'Marginalized communities often lack access to education.'},
+    {w:'Altruism',pr:'/ˈæltruɪzəm/',type:'n',vi:'Lòng vị tha',syn:['selflessness','generosity'],ant:['selfishness','egoism'],ex:'Altruism is the foundation of volunteer work.'},
+    {w:'Welfare',pr:'/ˈwelfeər/',type:'n',vi:'Phúc lợi, an sinh xã hội',syn:['well-being','social security'],ant:['hardship','destitution'],ex:'The government increased spending on social welfare.'},
+    {w:'Sibling',pr:'/ˈsɪblɪŋ/',type:'n',vi:'Anh chị em ruột',syn:['brother/sister'],ant:['only child'],ex:'She has three younger siblings.'},
+    {w:'Patriarchy',pr:'/ˈpeɪtriɑːki/',type:'n',vi:'Chế độ gia trưởng',syn:['male-dominated society'],ant:['matriarchy','equality'],ex:'Many societies are moving away from patriarchy.'},
+   ],
+   phrasal:[
+    {pv:'Bring up',vi:'Nuôi dạy (con cái)',ex:'She brought up three children on her own.'},
+    {pv:'Grow apart',vi:'Xa cách, không còn thân thiết',ex:'After college, the siblings grew apart.'},
+    {pv:'Look up to',vi:'Kính trọng, ngưỡng mộ',ex:'Young children often look up to their parents.'},
+    {pv:'Take after',vi:'Giống (bố mẹ về ngoại hình/tính cách)',ex:'He takes after his father in many ways.'},
+    {pv:'Fall out with',vi:'Cãi nhau dẫn đến giận dỗi',ex:'She fell out with her best friend over a misunderstanding.'},
+    {pv:'Make up (with)',vi:'Làm hòa',ex:'After the argument, they finally made up.'},
+    {pv:'Settle down',vi:'Ổn định cuộc sống',ex:'He\'s not ready to settle down yet.'},
+    {pv:'Give back',vi:'Đền đáp, giúp đỡ cộng đồng',ex:'It\'s time to give back to society.'},
+    {pv:'Care for',vi:'Chăm sóc (người già, người bệnh)',ex:'She cares for her elderly mother.'},
+    {pv:'Open up',vi:'Cởi mở, chia sẻ cảm xúc',ex:'He finds it hard to open up to his family.'},
+   ],
+   idioms:[
+    {id:'Blood is thicker than water',vi:'Một giọt máu đào hơn ao nước lã',ex:'Even after the argument, he forgave his brother because blood is thicker than water.'},
+    {id:'A chip off the old block',vi:'Con nhà tông không giống lông cũng giống cánh',ex:'His son is a chip off the old block – as stubborn as he is.'},
+    {id:'The black sheep of the family',vi:'Con cái hư, người làm ô nhục gia đình',ex:'He was the black sheep who went to prison.'},
+    {id:'Birds of a feather flock together',vi:'Ngưu tầm ngưu, mã tầm mã',ex:'They\'re both into arts – birds of a feather flock together.'},
+    {id:'A shoulder to cry on',vi:'Người để dựa dẫm, an ủi khi buồn',ex:'After the divorce, she needed a shoulder to cry on.'},
+    {id:'Like father, like son',vi:'Cha nào con nấy',ex:'He loves fishing just like his dad – like father, like son.'},
+    {id:'Get on like a house on fire',vi:'Chơi rất thân, hợp nhau ngay',ex:'My nephew and my dad got on like a house on fire.'},
+    {id:'Home is where the heart is',vi:'Gia đình là nơi bình yên nhất',ex:'After years abroad, he realized home is where the heart is.'},
+    {id:'Raise eyebrows',vi:'Gây ngạc nhiên, sốc',ex:'Her decision to quit a stable job raised eyebrows in the family.'},
+    {id:'Wear the trousers',vi:'Là người quyết định trong gia đình',ex:'In their house, it\'s the wife who wears the trousers.'},
+   ]
+  },
+  {id:'entertain',name:'Giải trí',emoji:'🎬',color:'violet',
+   words:[
+    {w:'Spectator',pr:'/spekˈteɪtər/',type:'n',vi:'Khán giả (xem thể thao, sự kiện)',syn:['viewer','onlooker'],ant:['participant','player'],ex:'Thousands of spectators attended the match.'},
+    {w:'Immersive',pr:'/ɪˈmɜːsɪv/',type:'adj',vi:'Đắm chìm, hút hồn',syn:['absorbing','captivating'],ant:['boring','superficial'],ex:'The game offers a truly immersive experience.'},
+    {w:'Blockbuster',pr:'/ˈblɒkbʌstər/',type:'n',vi:'Phim bom tấn',syn:['hit','megahit'],ant:['flop','failure'],ex:'The blockbuster earned a billion dollars at the box office.'},
+    {w:'Premiere',pr:'/ˈprɛmɪeər/',type:'n/v',vi:'Buổi công chiếu đầu tiên',syn:['debut','first showing'],ant:['finale','closing'],ex:'The film had its world premiere in Cannes.'},
+    {w:'Critically acclaimed',pr:'/ˈkrɪtɪkli əˈkleɪmd/',type:'adj',vi:'Được giới phê bình đánh giá cao',syn:['praised','lauded'],ant:['panned','criticized'],ex:'The critically acclaimed film won three Oscars.'},
+    {w:'Pastime',pr:'/ˈpɑːstaɪm/',type:'n',vi:'Trò tiêu khiển, sở thích',syn:['hobby','leisure activity'],ant:['work','chore'],ex:'Reading is his favourite pastime.'},
+    {w:'Plot twist',pr:'/plɒt twɪst/',type:'n',vi:'Tình tiết bất ngờ (phim, truyện)',syn:['surprise turn'],ant:['predictable plot'],ex:'The film\'s plot twist shocked the audience.'},
+    {w:'Chart-topper',pr:'/tʃɑːt ˈtɒpər/',type:'n',vi:'Bài hát quán quân',syn:['hit single'],ant:['flop'],ex:'Their new song became an instant chart-topper.'},
+    {w:'Stamina',pr:'/ˈstæmɪnə/',type:'n',vi:'Sức bền (thể thao)',syn:['endurance','resilience'],ant:['weakness','exhaustion'],ex:'Marathon runners need incredible stamina.'},
+    {w:'Audience rating',pr:'/ˈɔːdiəns ˈreɪtɪŋ/',type:'n',vi:'Tỷ suất người xem (truyền hình)',syn:['viewership'],ant:[],ex:'The show\'s audience ratings hit a record high.'},
+   ],
+   phrasal:[
+    {pv:'Take up',vi:'Bắt đầu (một sở thích mới)',ex:'He decided to take up photography.'},
+    {pv:'Wind down',vi:'Thư giãn sau căng thẳng',ex:'I like to wind down by watching a comedy.'},
+    {pv:'Tune in (to)',vi:'Bật kênh, xem/nghe chương trình',ex:'Millions tuned in to the season finale.'},
+    {pv:'Sell out',vi:'Bán hết vé (buổi diễn)',ex:'The concert sold out within two hours.'},
+    {pv:'Cheer on',vi:'Cổ vũ (đội thể thao)',ex:'The crowd cheered on the home team.'},
+    {pv:'Zone out',vi:'Mất tập trung, lơ đãng',ex:'I zoned out during the boring concert.'},
+    {pv:'Turn on',vi:'Bật (TV, nhạc)',ex:'Turn on the radio; I want to hear the news.'},
+    {pv:'Turn off',vi:'Tắt',ex:'Please turn off your phone during the movie.'},
+    {pv:'Act out',vi:'Diễn lại (một cảnh, kịch bản)',ex:'The students acted out a scene from Hamlet.'},
+    {pv:'Go out',vi:'Đi chơi, ra ngoài giải trí',ex:'Let\'s go out for dinner and a movie.'},
+   ],
+   idioms:[
+    {id:'On the edge of your seat',vi:'Hồi hộp, hấp dẫn đến nỗi không rời mắt',ex:'That thriller kept me on the edge of my seat.'},
+    {id:'Steal the show',vi:'Cướp spotlight, nổi bật nhất',ex:'The supporting actor stole the show with his performance.'},
+    {id:'The show must go on',vi:'Dù khó khăn vẫn phải tiếp tục',ex:'Even though the singer was sick, the show must go on.'},
+    {id:'Music to my ears',vi:'Tin vui, điều dễ nghe',ex:'When he said "You passed", it was music to my ears.'},
+    {id:'A cliffhanger',vi:'Đoạn kết lửng (để hồi hộp)',ex:'The season ended with a cliffhanger.'},
+    {id:'Kill time',vi:'Giết thời gian',ex:'We played cards to kill time before the show.'},
+    {id:'A hit with someone',vi:'Được ai đó yêu thích',ex:'The new game show is a big hit with teenagers.'},
+    {id:'Play it by ear',vi:'Tùy cơ ứng biến',ex:'We don\'t have tickets, so we\'ll play it by ear.'},
+    {id:'Face the music',vi:'Đối mặt với hậu quả',ex:'He was caught cheating and had to face the music.'},
+    {id:'All that jazz',vi:'Và những thứ tương tự',ex:'They sell TVs, phones, all that jazz.'},
+   ]
+  },
+  {id:'urban',name:'Đô thị hóa',emoji:'🏙️',color:'green',
+   words:[
+    {w:'Urban sprawl',pr:'/ˈɜːbən sprɔːl/',type:'n',vi:'Sự mở rộng thiếu kiểm soát của đô thị',syn:['expansion','diffusion'],ant:['controlled growth','rural'],ex:'Urban sprawl is consuming agricultural land.'},
+    {w:'Megalopolis',pr:'/ˌmeɡəˈlɒpəlɪs/',type:'n',vi:'Siêu đô thị, vùng đô thị khổng lồ',syn:['metropolis','conurbation'],ant:['village','hamlet'],ex:'Tokyo is one of the world\'s largest megalopolises.'},
+    {w:'Infrastructure',pr:'/ˈɪnfrəstrʌktʃər/',type:'n',vi:'Cơ sở hạ tầng',syn:['facilities','public works'],ant:[],ex:'The city invested heavily in transport infrastructure.'},
+    {w:'Gentrification',pr:'/ˌdʒentrɪfɪˈkeɪʃn/',type:'n',vi:'Sự cải tạo khu nghèo (khiến giá nhà tăng)',syn:['urban renewal','upgrading'],ant:['slum degradation'],ex:'Gentrification has displaced many low-income residents.'},
+    {w:'Congestion',pr:'/kənˈdʒestʃən/',type:'n',vi:'Ùn tắc (giao thông)',syn:['traffic jam','gridlock'],ant:['free flow','clear road'],ex:'Traffic congestion is a major problem in big cities.'},
+    {w:'Slum',pr:'/slʌm/',type:'n',vi:'Khu ổ chuột',syn:['shantytown','ghetto'],ant:['affluent neighborhood'],ex:'The government plans to redevelop the slum areas.'},
+    {w:'Municipal',pr:'/mjuːˈnɪsɪpl/',type:'adj',vi:'Thuộc về thành phố, đô thị',syn:['civic','urban'],ant:['rural','provincial'],ex:'Municipal services include waste collection and water supply.'},
+    {w:'Rural exodus',pr:'/ˈrʊərəl ˈeksədəs/',type:'n',vi:'Làn sóng di cư từ nông thôn',syn:['depopulation of countryside'],ant:['urbanization'],ex:'Rural exodus leads to overcrowding in cities.'},
+    {w:'Sustainable city',pr:'/səˈsteɪnəbl ˈsɪti/',type:'n',vi:'Đô thị bền vững',syn:['eco-city','green city'],ant:['polluted city'],ex:'Singapore is known as a sustainable city.'},
+    {w:'Overpopulation',pr:'/ˌəʊvəˌpɒpjʊˈleɪʃn/',type:'n',vi:'Quá tải dân số',syn:['overcrowding'],ant:['underpopulation','sparse'],ex:'Overpopulation puts enormous strain on resources.'},
+   ],
+   phrasal:[
+    {pv:'Spread out',vi:'Lan rộng, trải rộng (đô thị)',ex:'The city has spread out into the countryside.'},
+    {pv:'Put up',vi:'Xây dựng (tòa nhà)',ex:'They put up a new apartment block.'},
+    {pv:'Tear down',vi:'Phá hủy (công trình cũ)',ex:'Old factories were torn down to build a mall.'},
+    {pv:'Cope with',vi:'Đối phó với (vấn đề đô thị)',ex:'The city struggles to cope with waste management.'},
+    {pv:'Run out of',vi:'Cạn kiệt (tài nguyên, không gian)',ex:'The city is running out of land for housing.'},
+    {pv:'Turn into',vi:'Biến thành (khu vực đô thị)',ex:'The village was turned into a suburb.'},
+    {pv:'Zone off',vi:'Phân vùng (để sử dụng)',ex:'The government zoned off an area for a new industrial park.'},
+    {pv:'Clean up',vi:'Dọn dẹp, làm sạch (ô nhiễm đô thị)',ex:'The mayor promised to clean up the polluted river.'},
+    {pv:'Move to',vi:'Di chuyển đến (nơi khác)',ex:'Thousands move to cities every day.'},
+    {pv:'Close off',vi:'Phong tỏa (đường phố)',ex:'They closed off the street for a festival.'},
+   ],
+   idioms:[
+    {id:'A concrete jungle',vi:'Rừng bê tông (thành phố ngột ngạt)',ex:'New York can feel like a concrete jungle.'},
+    {id:'The hustle and bustle',vi:'Sự hối hả và nhộn nhịp',ex:'I love the hustle and bustle of downtown.'},
+    {id:'In the heart of the city',vi:'Ở trung tâm thành phố',ex:'The hotel is located in the heart of the city.'},
+    {id:'Up-and-coming',vi:'Đang lên, phát triển (khu vực)',ex:'This neighborhood is up-and-coming with many new cafes.'},
+    {id:'Live from hand to mouth',vi:'Sống chật vật, đủ ăn từng bữa',ex:'Many slum dwellers live from hand to mouth.'},
+    {id:'Brick and mortar',vi:'Cửa hàng truyền thống (không phải trực tuyến)',ex:'Despite online shopping, brick-and-mortar stores still exist.'},
+    {id:'Tower over',vi:'Cao vượt trội so với',ex:'The new skyscraper towers over the old buildings.'},
+    {id:'A melting pot',vi:'Nơi hội tụ đa văn hóa',ex:'London has long been a melting pot of cultures.'},
+    {id:'A drop in the bucket',vi:'Một phần nhỏ không đáng kể',ex:'Building one new school is a drop in the bucket for a city of millions.'},
+    {id:'Get off the beaten track',vi:'Rời khỏi khu vực đông đúc',ex:'Let\'s get off the beaten track and explore the suburbs.'},
+   ]
+  },
+];
+
+const ADVANCED_TOPICS = [
+  {id:'adv1',name:'Revenge Bedtime Procrastination',emoji:'🌙',
+   words:[
+    {w:'Procrastination',pr:'/prəˌkræstɪˈneɪʃn/',type:'n',vi:'Sự trì hoãn, chần chừ',syn:['delaying','postponement'],ant:['diligence','promptness'],ex:'Procrastination can ruin productivity.'},
+    {w:'Stay awake',pr:'/steɪ əˈweɪk/',type:'v phr',vi:'Thức, không ngủ',syn:['remain awake','keep alert'],ant:['fall asleep','doze off'],ex:'They keep staying awake longer than they should.'},
+    {w:'Feel stressed',pr:'/fiːl strest/',type:'v phr',vi:'Cảm thấy căng thẳng',syn:['feel anxious','under pressure'],ant:['feel relaxed','calm'],ex:'Many people do this because they feel stressed.'},
+    {w:'Control oneself',pr:'/kənˈtrəʊl wʌnˈself/',type:'v phr',vi:'Tự kiểm soát bản thân',syn:['self-regulate','restrain oneself'],ant:['lose control','give in'],ex:'When people cannot control themselves in the evening...'},
+    {w:'Think clearly',pr:'/θɪŋk ˈklɪəli/',type:'v phr',vi:'Suy nghĩ rõ ràng',syn:['have clarity','be lucid'],ant:['be confused','foggy'],ex:'When people do not sleep enough, they cannot think clearly.'},
+    {w:'Heart disease',pr:'/hɑːt dɪˈziːz/',type:'n phr',vi:'Bệnh tim',syn:['cardiovascular disease'],ant:[],ex:'Sleeping too little makes people more likely to get heart disease.'},
+    {w:'Gain weight',pr:'/ɡeɪn weɪt/',type:'v phr',vi:'Tăng cân',syn:['put on weight','become heavier'],ant:['lose weight','slim down'],ex:'Lack of sleep can cause people to gain weight.'},
+    {w:'Depressed',pr:'/dɪˈprest/',type:'adj',vi:'Trầm cảm, chán nản',syn:['sad','low-spirited','gloomy'],ant:['optimistic','cheerful','happy'],ex:'People who lack sleep often feel depressed.'},
+    {w:'Short nap',pr:'/ʃɔːt næp/',type:'n phr',vi:'Giấc ngủ ngắn (chợp mắt)',syn:['catnap','power nap','siesta'],ant:[],ex:'Short naps during the day can help too.'},
+    {w:'Daily rules',pr:'/ˈdeɪli ruːlz/',type:'n phr',vi:'Những quy tắc hằng ngày',syn:['routines','regulations'],ant:[],ex:'Staying late is a way to be free from daily rules.'},
+   ]
+  },
+  {id:'adv2',name:'Doom Loop',emoji:'📉',
+   words:[
+    {w:'Doom loop',pr:'/duːm luːp/',type:'n',vi:'Vòng xoáy suy thoái, vòng luẩn quẩn tiêu cực',syn:['vicious cycle','downward spiral'],ant:['virtuous cycle','flywheel effect'],ex:'The Greek debt crisis provides a textbook illustration of a doom loop.'},
+    {w:'Austerity',pr:'/ɒˈsterɪti/',type:'n',vi:'Chính sách thắt lưng buộc bụng',syn:['budget cuts','fiscal consolidation','belt-tightening'],ant:['stimulus','expansionary policy'],ex:'Governments imposed austerity, slowing domestic economies.'},
+    {w:'Sovereign bonds',pr:'/ˈsɒvrɪn bɒndz/',type:'n',vi:'Trái phiếu chính phủ',syn:['government bonds','treasury bonds'],ant:[],ex:'As sovereign bonds lost value, local banks suffered losses.'},
+    {w:'Bailout',pr:'/ˈbeɪlaʊt/',type:'n',vi:'Gói cứu trợ tài chính',syn:['rescue package','financial lifeline'],ant:[],ex:'The IMF and ECB injected bailout funds tied to austerity conditions.'},
+    {w:'Contagion effect',pr:'/kənˈteɪdʒən ɪˈfekt/',type:'n',vi:'Hiệu ứng lây lan',syn:['spillover effect','domino effect','ripple effect'],ant:['isolation','containment'],ex:'The crisis created a contagion effect across the monetary union.'},
+    {w:'Fiscal deficit',pr:'/ˈfɪskl ˈdefɪsɪt/',type:'n',vi:'Thâm hụt ngân sách',syn:['budget deficit','fiscal gap'],ant:['fiscal surplus','budget surplus'],ex:'Greece admitted that its fiscal deficit exceeded 12% of GDP.'},
+    {w:'Destabilize',pr:'/diːˈsteɪbɪlaɪz/',type:'v',vi:'Gây mất ổn định',syn:['undermine','unsettle','shake'],ant:['stabilize','strengthen'],ex:'Rapid monetary tightening can destabilize institutions.'},
+    {w:'Flywheel effect',pr:'/ˈflaɪwiːl ɪˈfekt/',type:'n',vi:'Hiệu ứng bánh đà (tích lũy đà tăng trưởng)',syn:['virtuous cycle','compounding momentum'],ant:['doom loop','vicious cycle'],ex:'Jim Collins popularized the flywheel effect as the conceptual opposite.'},
+    {w:'Wipe out',pr:'/waɪp aʊt/',type:'v phr',vi:'Xóa sổ, phá hủy hoàn toàn',syn:['eliminate','destroy','obliterate'],ant:['preserve','protect'],ex:'The crash ultimately wiped out nearly 89% of market value.'},
+    {w:'Liquidity shocks',pr:'/lɪˈkwɪdɪti ʃɒks/',type:'n',vi:'Cú sốc thanh khoản',syn:['cash crunch','funding freeze'],ant:['ample liquidity'],ex:'Triggers include liquidity shocks and excessive leverage.'},
+   ]
+  },
+  {id:'adv3',name:'Carbon Tunnel Vision',emoji:'🌡️',
+   words:[
+    {w:'Net-zero',pr:'/net ˈzɪərəʊ/',type:'n/adj',vi:'Phát thải ròng bằng 0',syn:['carbon neutrality'],ant:['high emissions','carbon positive'],ex:'As governments pledge net-zero by mid-century.'},
+    {w:'Biodiversity',pr:'/ˌbaɪəʊdaɪˈvɜːsəti/',type:'n',vi:'Đa dạng sinh học',syn:['biological diversity','ecological variety'],ant:[],ex:'Biodiversity, too, is at risk from fossil fuel operations.'},
+    {w:'Collateral damage',pr:'/kəˈlætərəl ˈdæmɪdʒ/',type:'n',vi:'Thiệt hại phụ, ngoài ý muốn',syn:['unintended harm','side effect','by-product'],ant:['intended benefit'],ex:'Communities near wells and refineries absorb the collateral damage.'},
+    {w:'Particulate matter',pr:'/pɑːˈtɪkjʊlɪt ˈmætər/',type:'n',vi:'Vật chất dạng hạt (bụi mịn)',syn:['PM2.5','PM10','soot'],ant:[],ex:'Particulate matter causes serious respiratory diseases.'},
+    {w:'Carbon tunnel vision',pr:'/ˈkɑːbən ˈtʌnl ˈvɪʒn/',type:'n',vi:'Tầm nhìn hạn hẹp chỉ về carbon',syn:['narrow focus on CO2'],ant:['holistic view','comprehensive assessment'],ex:'Advocates urge planners to look past carbon tunnel vision.'},
+    {w:'Disproportionately',pr:'/ˌdɪsprəˈpɔːʃənɪtli/',type:'adv',vi:'Không tương xứng, quá mức',syn:['unequally','unfairly','unduly'],ant:['proportionally','equally'],ex:'Minorities disproportionately live near fracking wells.'},
+    {w:'Harms distribute unevenly',pr:'/hɑːmz dɪˈstrɪbjuːt ˌʌnˈiːvənli/',type:'v phr',vi:'Tác hại phân bố không đồng đều',syn:['impacts are inequitable'],ant:['harms are evenly distributed'],ex:'The environmental harms distribute unevenly across communities.'},
+    {w:'Adverse birth outcomes',pr:'/ˈædvɜːs bɜːθ ˈaʊtkʌmz/',type:'n',vi:'Kết quả sinh nở bất lợi',syn:['birth defects','low birth weight','preterm birth'],ant:['healthy birth'],ex:'Air pollution is linked to adverse birth outcomes.'},
+    {w:'Indigenous',pr:'/ɪnˈdɪdʒɪnəs/',type:'adj',vi:'Bản địa, thổ dân',syn:['native','aboriginal','autochthonous'],ant:['foreign','settler'],ex:'A third of the conflicts involve Indigenous people.'},
+    {w:'Offsets',pr:'/ˈɒfsets/',type:'n',vi:'Bù trừ carbon (trồng cây, mua tín chỉ)',syn:['carbon credits','compensation'],ant:[],ex:'Investigations have repeatedly found offset schemes unreliable.'},
+   ]
+  },
+  {id:'adv4',name:'MBA Job Market Crisis',emoji:'🎓',
+   words:[
+    {w:'Precarious',pr:'/prɪˈkeəriəs/',type:'adj',vi:'Bấp bênh, không chắc chắn',syn:['unstable','risky','insecure'],ant:['secure','stable'],ex:'Many graduates face a precarious job search.'},
+    {w:'Recalibrate expectations',pr:'/riːˈkælɪbreɪt ˌekspekˈteɪʃnz/',type:'v phr',vi:'Điều chỉnh lại kỳ vọng',syn:['readjust hopes','lower expectations'],ant:['maintain high expectations'],ex:'Graduates must recalibrate their expectations.'},
+    {w:'Serendipity',pr:'/ˌserənˈdɪpɪti/',type:'n',vi:'Sự tình cờ may mắn',syn:['luck','fortuity','happy accident'],ant:['misfortune','bad luck'],ex:'Yet, serendipity still plays a role in job hunting.'},
+    {w:'Financial limbo',pr:'/faɪˈnænʃl ˈlɪmbəʊ/',type:'n phr',vi:'Trạng thái lơ lửng về tài chính',syn:['economic uncertainty','income gap'],ant:['financial stability'],ex:'Unsettling delays left her in financial limbo.'},
+    {w:'Alumni',pr:'/əˈlʌmnaɪ/',type:'n',vi:'Cựu sinh viên (số nhiều)',syn:['graduates','former students'],ant:[],ex:'Many alumni are still searching for positions months after graduating.'},
+    {w:'Scale back',pr:'/skeɪl bæk/',type:'v phr',vi:'Cắt giảm, thu hẹp',syn:['reduce','cut down','downsize'],ant:['expand','increase'],ex:'Amazon, Google, and McKinsey have significantly scaled back their hiring.'},
+    {w:'Pragmatic approach',pr:'/præɡˈmætɪk əˈprəʊtʃ/',type:'n phr',vi:'Cách tiếp cận thực dụng',syn:['practical method','realistic strategy'],ant:['idealistic approach','impractical'],ex:'Graduates are forced to adopt a more pragmatic approach.'},
+    {w:'Self-doubt',pr:'/self daʊt/',type:'n',vi:'Sự nghi ngờ bản thân',syn:['insecurity','lack of confidence'],ant:['self-confidence','assurance'],ex:'The long search prompted moments of self-doubt.'},
+    {w:'Seamless transition',pr:'/ˈsiːmləs trænˈzɪʃn/',type:'n phr',vi:'Sự chuyển tiếp suôn sẻ',syn:['smooth shift','easy change'],ant:['rocky transition','difficult shift'],ex:'Companies eliminated the seamless transition from academia to corporate roles.'},
+    {w:'Psychologically taxing',pr:'/ˌsaɪkəˈlɒdʒɪkli ˈtæksɪŋ/',type:'adj phr',vi:'Gây căng thẳng tâm lý',syn:['mentally exhausting','stressful'],ant:['relaxing','calming'],ex:'The extended job hunt is also psychologically taxing.'},
+   ]
+  },
+];
+
+const GRAMMAR_TOPICS = [
+  {id:'g1',title:'Thì Động Từ (Verb Tenses)',tag:'GRAMMAR',
+   content:`
+<h4>HTĐ vs HTTD (Present Simple vs Present Continuous)</h4>
+<div class="rule-box"><strong>Hiện tại đơn (HTĐ):</strong> sự thật, thói quen, lịch trình cố định<br>→ Dấu hiệu: <code>always, usually, often, sometimes, rarely, never, every..., on Mondays</code></div>
+<div class="rule-box"><strong>Hiện tại tiếp diễn (HTTD):</strong> hành động đang xảy ra lúc nói, hoặc xu hướng tạm thời<br>→ Dấu hiệu: <code>now, at the moment, at present, currently, these days, still, look!, listen!</code></div>
+<div class="example-box">She usually <em>cycles</em> to work, but this week she <em>is taking</em> the bus because her bike broke down.</div>
+<div class="tip-box">⚠️ <strong>Stative verbs KHÔNG dùng HTTD:</strong> know, believe, love, hate, want, need, seem, understand, contain, belong...<br>❌ <em>I am knowing the answer.</em> → ✅ <em>I know the answer.</em></div>
+
+<h4>QKĐ vs HTHT (Past Simple vs Present Perfect)</h4>
+<div class="rule-box"><strong>Quá khứ đơn (QKĐ):</strong> hành động đã kết thúc, có mốc thời gian cụ thể trong quá khứ<br>→ <code>yesterday, ago, last..., in + năm cụ thể, when + QKĐ</code></div>
+<div class="rule-box"><strong>Hiện tại hoàn thành (HTHT):</strong> hành động liên quan đến hiện tại<br>→ <code>since, for, already, yet, just, ever, never, recently, lately, so far, up to now, this week/month/year</code></div>
+<div class="example-box">I <em>lost</em> my keys yesterday. (QKĐ - đã xong)<br>I <em>have lost</em> my keys. (HTHT - vẫn chưa tìm được)</div>
+<div class="tip-box">💡 <strong>Mẹo "for":</strong> "for + khoảng thời gian" có thể đi với CẢ HAI thì.<br>Còn đang tiếp diễn → HTHT | Đã kết thúc → QKĐ</div>
+
+<h4>Quá khứ hoàn thành (QKHT)</h4>
+<div class="rule-box">Hai việc trong quá khứ: việc xảy ra TRƯỚC dùng QKHT (had + P2), việc xảy ra SAU dùng QKĐ.<br>→ <code>before, after, when, by the time, as soon as, already, just, never... before</code></div>
+<div class="example-box">By the time the ambulance <em>arrived</em>, the patient <em>had already died</em>.<br>When I <em>got</em> to the station, the train <em>had already left</em>.</div>
+<div class="tip-box">💡 <strong>Công thức nhanh:</strong> Thấy "by the time + QKĐ" → mệnh đề chính dùng QKHT.</div>
+
+<h4>Tương lai: will / be going to / Present Continuous</h4>
+<div class="rule-box"><strong>Will:</strong> quyết định tại chỗ, dự đoán không có bằng chứng<br><strong>Be going to:</strong> bằng chứng hiện tại, kế hoạch đã quyết định<br><strong>Present Continuous:</strong> đã sắp xếp cụ thể (lịch hẹn)</div>
+<div class="tip-box">⚠️ <strong>Bẫy mệnh đề thời gian:</strong> Sau <code>when, before, after, as soon as, until, by the time</code> → KHÔNG dùng will, dùng HTĐ hoặc HTHT.<br>❌ <em>I will call you when I will arrive.</em> → ✅ <em>I will call you when I arrive.</em></div>
+`},
+  {id:'g2',title:'Câu Bị Động (Passive Voice)',tag:'GRAMMAR',
+   content:`
+<h4>Khi nào dùng bị động?</h4>
+<div class="rule-box">(1) Không biết / không cần nói chủ thể hành động<br>(2) Muốn nhấn mạnh vào đối tượng bị tác động<br>(3) Văn phong trang trọng, khoa học, báo chí</div>
+
+<h4>Công thức: BE + V3 (P2)</h4>
+<div class="rule-box">
+HTĐ: <code>are sold</code> | HTTD: <code>is being built</code> | QKĐ: <code>was stolen</code><br>
+QKTD: <code>was being fixed</code> | HTHT: <code>has been cancelled</code><br>
+QKHT: <code>had been finished</code> | Tương lai: <code>will be announced</code><br>
+Modal: <code>must be submitted</code>
+</div>
+<div class="example-box">The Eiffel Tower ______ in 1889. → chủ ngữ là "vật" + năm xây dựng → <strong>was built</strong></div>
+
+<h4>Have/Get something done</h4>
+<div class="rule-box"><code>S + have/get + O + P2</code>: nhờ/thuê người khác làm việc gì cho mình</div>
+<div class="example-box">She <em>had her car repaired</em> at the garage. (nhờ garage sửa xe)<br>You should <em>get your eyes checked</em>. (nên đi kiểm tra mắt)</div>
+<div class="tip-box">⚠️ <strong>Đừng nhầm:</strong> "He had his wallet stolen" = bị ai đó lấy trộm ví (bị động ngoài ý muốn, KHÔNG phải nhờ ai làm).</div>
+`},
+  {id:'g3',title:'Câu Điều Kiện (Conditionals)',tag:'GRAMMAR',
+   content:`
+<h4>4 loại câu điều kiện</h4>
+<div class="rule-box"><strong>Loại 0 – Luật tự nhiên:</strong> If + HTĐ, HTĐ<br><em>If you heat ice, it melts.</em></div>
+<div class="rule-box"><strong>Loại 1 – Có thể xảy ra:</strong> If + HTĐ, will/can/may + V<br><em>If it doesn't rain tomorrow, we will go hiking.</em></div>
+<div class="rule-box"><strong>Loại 2 – Trái thực tế hiện tại:</strong> If + QKĐ (be→were), would/could/might + V<br><em>If I were a bird, I would fly to you.</em></div>
+<div class="rule-box"><strong>Loại 3 – Trái thực tế quá khứ:</strong> If + QKHT, would/could/might + have + P2<br><em>If she had set an alarm, she wouldn't have missed the flight.</em></div>
+
+<h4>Câu điều kiện hỗn hợp (Mixed Conditionals)</h4>
+<div class="example-box">If he <em>had studied</em> medicine, he <em>would be</em> a doctor now. (học y từ trước → bây giờ là bác sĩ)<br>If I <em>were</em> more careful, I <em>wouldn't have made</em> that mistake. (bản chất cẩn thận hơn → đã không mắc lỗi)</div>
+
+<h4>Đảo ngữ câu điều kiện</h4>
+<div class="rule-box">Bỏ "if", đảo trợ động từ lên trước chủ ngữ.<br><strong>Loại 1:</strong> <code>Should you need any help, please call me.</code><br><strong>Loại 2:</strong> <code>Were I in your shoes, I would refuse.</code><br><strong>Loại 3:</strong> <code>Had she known the truth, she would have reacted differently.</code></div>
+<div class="tip-box">💡 Thấy "Were/Had/Should + S" ở đầu mệnh đề → đây là câu điều kiện đảo ngữ, KHÔNG phải câu hỏi.</div>
+`},
+  {id:'g4',title:'Mệnh Đề Quan Hệ (Relative Clauses)',tag:'GRAMMAR',
+   content:`
+<h4>Xác định vs Không xác định</h4>
+<div class="rule-box"><strong>Xác định (Defining):</strong> Không có dấu phẩy. Thông tin cần thiết để xác định danh từ. Có thể dùng <code>that, who, which, whose, whom</code>.<br><em>The boy who sits next to me is Tom.</em></div>
+<div class="rule-box"><strong>Không xác định (Non-defining):</strong> Có dấu phẩy. Thông tin bổ sung, bỏ đi vẫn hiểu. KHÔNG dùng "that". Chỉ dùng <code>who, which, whose, whom</code>.<br><em>My brother, who lives in HCM, is a doctor.</em></div>
+<div class="tip-box">⚠️ Thấy dấu phẩy trước đại từ quan hệ → KHÔNG được dùng "that".<br>❌ <em>Ha Noi, that is the capital, is beautiful.</em> → ✅ <em>Ha Noi, which is the capital, is beautiful.</em></div>
+
+<h4>Where / When / Why trong mệnh đề quan hệ</h4>
+<div class="rule-box"><code>Where</code> = in/at/on which (thay cho nơi chốn): <em>the city where I was born</em><br><code>When</code> = at/in/on which (thay cho thời gian): <em>the year when I graduated</em><br><code>Why</code> = for which (thay cho lý do): <em>the reason why he left</em></div>
+
+<h4>Rút gọn mệnh đề quan hệ</h4>
+<div class="rule-box"><strong>Chủ động</strong> → V-ing: <em>The woman standing over there.</em><br><strong>Bị động</strong> → P2 (V3): <em>The bridge built in 1990.</em><br><strong>Thứ tự/khả năng</strong> → to-V: <em>She was the first person to arrive.</em></div>
+<div class="tip-box">💡 Nếu danh từ trước là CHỦ THỂ hành động → V-ing. Nếu là ĐỐI TƯỢNG bị tác động → P2.<br>"a barking dog" (chủ thể) | "a broken window" (đối tượng)</div>
+`},
+  {id:'g5',title:'Liên Từ & Giới Từ (Conjunctions & Prepositions)',tag:'GRAMMAR',
+   content:`
+<h4>Although / Despite / In spite of</h4>
+<div class="rule-box"><code>Although / though / even though + S + V</code> (mệnh đề đầy đủ)<br><code>Despite / In spite of + N / V-ing / the fact that + S + V</code></div>
+<div class="example-box">Although it was raining heavily, we continued our journey.<br>Despite the heavy rain, we continued our journey.<br>In spite of feeling tired, she kept working.</div>
+<div class="tip-box">⚠️ <em>Despite he worked hard, he failed.</em> → SAI! Phải thêm "the fact that" hoặc đổi thành "Although".</div>
+
+<h4>Because / Because of / Due to / Owing to</h4>
+<div class="rule-box"><code>Because + S + V</code><br><code>Because of / Due to / Owing to + N / V-ing</code></div>
+<div class="example-box">Because the weather was bad, the flight was delayed.<br>Because of / Due to / Owing to bad weather, the flight was delayed.</div>
+
+<h4>So that / Such...that / So...that</h4>
+<div class="rule-box"><code>so + adj/adv + that</code>: đến mức mà (chỉ kết quả)<br><code>such + (a/an) + adj + N + that</code>: đến mức mà (có danh từ)<br><code>so that / in order that + S + can/will + V</code>: để (chỉ mục đích)</div>
+<div class="tip-box">⚠️ "so + adj" (so beautiful) | "such + (a/an) + adj + N" (such a beautiful girl | such beautiful weather)<br>❌ <em>such a so good idea</em> → chỉ dùng MỘT trong hai.</div>
+`},
+  {id:'g6',title:'Wish (3 loại)',tag:'GRAMMAR',
+   content:`
+<div class="rule-box"><strong>Ước HT (trái thực tế hiện tại):</strong> wish + QKĐ<br><em>I wish I spoke French.</em> (thực tế: không biết)<br><em>She wishes she were taller.</em> (be → were với mọi ngôi)</div>
+<div class="rule-box"><strong>Ước QK (hối tiếc về QK):</strong> wish + QKHT (had + P2)<br><em>I wish I had studied harder.</em> (thực tế: đã không học chăm)<br><em>He wishes he hadn't said that.</em></div>
+<div class="rule-box"><strong>Ước TL (muốn ai thay đổi):</strong> wish + would + V<br><em>I wish you would stop making noise.</em> (bực bội, muốn họ dừng)</div>
+<div class="tip-box">⚠️ "I wish I will..." — SAI. Wish + would, không phải will.<br>Và wish + would KHÔNG dùng cho chính chủ ngữ: I wish I would be → I wish I were.</div>
+`},
+  {id:'g7',title:'Gerund vs To-infinitive (Đổi nghĩa)',tag:'GRAMMAR',
+   content:`
+<div class="rule-box"><strong>remember + V-ing</strong>: nhớ lại đã làm gì (việc đã xảy ra)<br><em>I remember meeting her at the party.</em></div>
+<div class="rule-box"><strong>remember + to-V</strong>: nhớ (để) làm gì (việc sẽ/cần làm)<br><em>Remember to lock the door when you leave.</em></div>
+<div class="rule-box"><strong>forget + V-ing</strong>: quên mất rằng đã làm gì<br><em>I'll never forget seeing the northern lights.</em></div>
+<div class="rule-box"><strong>forget + to-V</strong>: quên mà không làm gì<br><em>She forgot to submit the form.</em></div>
+<div class="rule-box"><strong>stop + V-ing</strong>: dừng hẳn việc đang làm<br><em>He stopped smoking last year.</em></div>
+<div class="rule-box"><strong>stop + to-V</strong>: dừng lại ĐỂ làm việc khác<br><em>She stopped to buy some flowers.</em></div>
+<div class="rule-box"><strong>try + V-ing</strong>: thử làm xem sao<br><em>Try adding some salt – it might taste better.</em></div>
+<div class="rule-box"><strong>try + to-V</strong>: cố gắng làm (nhưng khó)<br><em>She tried to open the jar but couldn't.</em></div>
+`},
+  {id:'g8',title:'Modals (Động Từ Khuyết Thiếu)',tag:'GRAMMAR',
+   content:`
+<h4>Modal + have + P2 (suy luận về việc đã xảy ra)</h4>
+<div class="rule-box"><strong>must have + P2</strong>: chắc chắn đã xảy ra<br><em>She must have worked all night.</em></div>
+<div class="rule-box"><strong>can't / couldn't have + P2</strong>: chắc chắn đã KHÔNG xảy ra<br><em>He can't have stolen the money — he wasn't even there!</em></div>
+<div class="rule-box"><strong>should have + P2</strong>: lẽ ra đã phải làm (nhưng không làm) — có hối tiếc<br><em>You should have told me earlier.</em></div>
+<div class="rule-box"><strong>shouldn't have + P2</strong>: lẽ ra không nên làm (nhưng đã làm)<br><em>I shouldn't have eaten so much.</em></div>
+<div class="rule-box"><strong>might/may have + P2</strong>: có thể đã xảy ra (không chắc)<br><em>She might have missed the bus.</em></div>
+<div class="rule-box"><strong>needn't have + P2</strong>: đã làm nhưng thực ra không cần thiết<br><em>You needn't have brought food — we already have plenty.</em></div>
+`},
+  {id:'g9',title:'Đảo Ngữ (Inversion)',tag:'GRAMMAR',
+   content:`
+<div class="rule-box">Đảo ngữ xảy ra khi trạng từ/cụm trạng từ phủ định hoặc hạn chế đứng ĐẦU CÂU.<br><strong>Cấu trúc: Trạng từ phủ định + trợ động từ + S + V</strong></div>
+<div class="rule-box"><strong>Never / Rarely / Seldom / Hardly ever + have/has/had/do/did/will/can + S + V</strong><br><em>Never have I seen such a mess.</em> (= I have never seen...)<br><em>Rarely does she complain about anything.</em></div>
+<div class="rule-box"><strong>No sooner + had + S + P2 + than + S + QKĐ</strong><br><em>No sooner had I arrived than it started raining.</em></div>
+<div class="rule-box"><strong>Hardly / Scarcely + had + S + P2 + when/before + S + QKĐ</strong><br><em>Hardly had she sat down when the phone rang.</em></div>
+<div class="rule-box"><strong>Not only + trợ ĐT + S + V, but + S + also + V</strong><br><em>Not only did he win the race, but he also broke the record.</em></div>
+<div class="rule-box"><strong>Only + trạng từ + trợ ĐT + S + V</strong><br><em>Only then did I realise my mistake.</em></div>
+<div class="tip-box">💡 Thấy "Never / No sooner / Hardly / Not only / Only" ở đầu câu → đảo ngữ, trợ động từ phải đứng TRƯỚC chủ ngữ.</div>
+`},
+];
+
+const MISTAKES = [
+  {num:25,type:'Paraphrase',
+   q:'Which of the following best paraphrases: "AR is truly a golden opportunity to reshape our interaction with the world."',
+   opts:['A. AR is a minor chance to slightly alter how we interact with the world, offering limited benefits.',
+         'B. By using AR, people can explore limitless opportunities to interact with their surroundings.',
+         'C. AR has the potential to replace traditional ways of interacting with the environment.',
+         'D. Reshaping how people perceive the world can be achieved by adopting AR technology.'],
+   ans:'D',
+   explain:'Câu gốc: AR là cơ hội rất tốt để thay đổi căn bản cách ta tương tác với thế giới. Đáp án D giữ nguyên ý chính dưới dạng bị động.',
+   tip:'🔑 Mẹo paraphrase: Nhận diện từ khoá và sắc thái. Loại đáp án thay đổi mức độ (minor thay vì golden), loại đáp án thêm ý không có trong câu gốc (limitless), loại đáp án dùng từ sai nghĩa (replace thay vì reshape).'},
+  {num:34,type:'Opposite meaning',
+   q:'The word "permeates" (lan tỏa) in the final paragraph is OPPOSITE in meaning to ______.',
+   opts:['A. dissipates','B. saturates','C. infiltrates','D. penetrates'],
+   ans:'A',
+   explain:'B, C, D đều mang nghĩa "thấm vào/xâm nhập". Chỉ có A "dissipates" mang nghĩa "tan biến, phân tán" – trái nghĩa với "lan tỏa khắp nơi".',
+   tip:'🔑 Khi không biết từ, quan sát: B,C,D cùng nghĩa → từ còn lại là đáp án. Prefix "dis-" thường mang nghĩa phủ định/phân tán.'},
+  {num:15,type:'Ordering',
+   q:'Sắp xếp thứ tự các câu trong thư: (a) Your tips made a noticeable difference. (b) Thanks again for recommending those tips. (c) Let\'s catch up soon. (d) Since then, I\'ve started researching more. (e) I\'ve been thinking about what we discussed last time.',
+   opts:['A. b-c-a-d-e','B. b-d-e-a-c','C. e-a-d-b-c','D. e-b-c-a-d'],
+   ans:'C',
+   explain:'e (nhắc lại cuộc trò chuyện trước) → a (kết quả cụ thể) → d (hành động tiếp theo) → b (cảm ơn sau khi đã chia sẻ kết quả) → c (kết thư bằng lời hẹn gặp).',
+   tip:'🔑 Mẹo sắp xếp câu thư: Câu mở đầu thường nhắc lại kỷ niệm/cuộc trò chuyện. Lời cảm ơn xuất hiện SAU khi đề cập đến điều được cảm ơn. Câu kết là lời đề nghị/hẹn gặp.'},
+  {num:29,type:'Fill in the blank',
+   q:'The movie also (29) ______, which proved the nation\'s strong will in diplomacy and its desire for independence and peace.',
+   opts:['A. which was an important diplomatic event','B. recalled the Paris Conference on Vietnam','C. to show the desire for independence and peace','D. remembering the sacrifices of the soldiers'],
+   ans:'B',
+   explain:'Chỗ trống cần một động từ chính ở thì quá khứ. "recalled" (B) là động từ chính phù hợp, song song với các động từ khác trong đoạn. A, C, D không có động từ chính hợp lệ.',
+   tip:'🔑 Xác định từ loại cần điền: A "which" không có động từ chính, C "to show" là to-V không làm vị ngữ, D "remembering" không có trợ động từ.'},
+  {num:30,type:'Fill in the blank',
+   q:'When the film was released, (30) ______. The film deeply moved people of different generations.',
+   opts:['A. a powerful effect creation because it brought strong emotions to both veterans and young audiences.',
+         'B. which it created a powerful effect because it brought strong emotions.',
+         'C. it created a powerful effect because it brought strong emotions to both veterans and young audiences.',
+         'D. creating a powerful effect because it brought strong emotions.'],
+   ans:'C',
+   explain:'Sau "When + mệnh đề", cần một mệnh đề chính (S + V). C có đủ chủ ngữ "it" và động từ "created". A là cụm danh từ, B thiếu mệnh đề chính, D là cụm phân từ.',
+   tip:'🔑 "When + mệnh đề phụ, ____" → cần mệnh đề chính đầy đủ S+V.'},
+  {num:31,type:'Fill in the blank',
+   q:'The movie also highlights the role of brave guerrillas, especially young women who rowed boats across the Thach Han River. (31) ______.',
+   opts:['A. Their silent but important work became a symbol of courage and love for the country.',
+         'B. Many viewers have been deeply moved by the way the film illustrates the hardships of workers.',
+         'C. Inspired by true historical stories, the teacher used realistic details to recreate the battlefield atmosphere.',
+         'D. The depiction of bravery and sacrifice in the film hasn\'t attracted both critics and audiences.'],
+   ans:'A',
+   explain:'"Their" trong A chỉ những cô gái vừa nhắc đến, logic và phù hợp với chủ đề hy sinh, lòng dũng cảm. B lạc chủ đề (hardships of workers), C nhắc đến giáo viên (không có trong đoạn), D mang nghĩa phủ định (trái với giọng văn ca ngợi tích cực).',
+   tip:'🔑 Câu cuối đoạn phải tiếp nối logic với câu liền trước. "Their" phải có danh từ được thay thế rõ ràng ở câu trước.'},
+  {num:1,type:'Summary',
+   q:'Which of the following best summarizes paragraph 3 (China tutoring industry)?',
+   opts:['A. The 2021 crackdown caused the tutoring industry to close entirely, with no demand from parents although it was valued at nearly $100 billion.',
+         'B. China\'s tutoring industry, though reduced by the 2021 crackdown, is now rebounding as demand remains high and policies ease.',
+         'C. China\'s tutoring industry decreased due to a drop in parental interest, but policies now encourage its return.',
+         'D. Despite the crackdown, China\'s tutoring industry has been wholly unaffected and remains at $100 billion.'],
+   ans:'B',
+   explain:'B tóm gọn đúng 3 ý: ngành bị thu hẹp sau siết chặt + phụ huynh vẫn có nhu cầu cao + đang phục hồi nhờ nới lỏng chính sách. A sai (không đóng cửa hoàn toàn), C sai (nhu cầu không giảm), D sai (bị ảnh hưởng rõ ràng).',
+   tip:'🔑 Tóm tắt đoạn phải bao hàm ĐỦ CÁC Ý CHÍNH mà không thêm ý mới hoặc sai lệch sắc thái.'},
+  {num:2,type:'Vocabulary',
+   q:'The phrase "crackdown" in paragraph 2 could be best replaced by ______.',
+   opts:['A. governmental restriction','B. economic burden','C. national assistance','D. public backing'],
+   ans:'A',
+   explain:'"crackdown" = hành động trấn áp, siết chặt bằng luật lệ. B, C, D không liên quan. "governmental restriction" = sự hạn chế của chính phủ là đồng nghĩa nhất.',
+   tip:'🔑 Từ đồng nghĩa với "crackdown": clampdown, suppression, enforcement, crackdown measure. Từ trái nghĩa: relaxation, encouragement, support.'},
+  {num:4,type:'Opposite meaning',
+   q:'The word "forceful" in paragraph 4 is OPPOSITE in meaning to ______.',
+   opts:['A. trivial','B. profound','C. passionate','D. vigorous'],
+   ans:'A',
+   explain:'"forceful" = mạnh mẽ, quyết liệt. "trivial" = tầm thường, yếu ớt, không quan trọng. B "profound" = sâu sắc, C "passionate" = nồng nhiệt, D "vigorous" = mãnh liệt (cùng nghĩa với forceful).',
+   tip:'🔑 Đồng nghĩa với "forceful": powerful, strong, vigorous, intense. Trái nghĩa: weak, gentle, trivial, feeble.'},
+  {num:6,type:'Paraphrase',
+   q:'Paraphrase: "The overall policy environment has changed from restrictive to supportive as the main goal now is stabilization."',
+   opts:['A. Having shifted from restrictive, the policy environment aims at stabilization, which was not the main objective before.',
+         'B. Although the policy environment has become more supportive, its main goal is still to impose restrictions.',
+         'C. He stated that from being restrictive, the policy environment has shifted to a more supportive one, with the primary objective now focused on achieving stabilization.',
+         'D. The policy environment has changed from restrictive to supportive, with its primary aim now to stabilize economic growth.'],
+   ans:'C',
+   explain:'A thêm ý "which was not the main objective before" (không có trong gốc). B nói mục tiêu vẫn là "impose restrictions" (sai hoàn toàn). C diễn đạt chính xác. D thêm "economic growth" (không có trong câu gốc).',
+   tip:'🔑 Paraphrase đúng phải: giữ nguyên nội dung, KHÔNG thêm hoặc bớt ý, có thể đổi cấu trúc nhưng không làm sai lệch thông điệp.'},
+  {num:7,type:'Summary',
+   q:'Which of the following best summarises the whole passage about China\'s tutoring industry?',
+   opts:['A. The Chinese government has gradually relaxed its restrictions on private tutoring, recognizing the growing demand and aiming to balance economic and social needs.',
+         'B. The government\'s policy change reflects an effort to expand the private tutoring industry, which was severely limited during the crackdown.',
+         'C. The easing of regulations is intended to help the tutoring industry regain its former size, without addressing long-term effects.',
+         'D. Irrespective of initial policy measures to reduce tutoring services, the government\'s current focus on economic stability has led to the industry\'s rapid recovery.'],
+   ans:'A',
+   explain:'A bao hàm đủ 3 ý chính: nới lỏng + nhu cầu thực tế + cân bằng kinh tế/xã hội. B chỉ nói "expand" (thiếu lý do). C "regain former size" không được đề cập. D "rapid recovery" + "irrespective of" chưa chính xác.',
+   tip:'🔑 Tóm tắt toàn bài phải phản ánh đủ luận điểm chính và không sai lệch sắc thái.'},
+  {num:10,type:'Inference',
+   q:'Which of the following can be inferred from the tutoring passage?',
+   opts:['A. The government\'s easing is solely motivated by the desire to boost the economy, regardless of educational equity.',
+         'B. Despite previous efforts to limit tutoring, the policy change indicates a shift toward recognizing the continued demand for educational support services.',
+         'C. The Chinese government is now prioritizing the expansion of private tutoring above all other educational reforms.',
+         'D. The primary goal of the "double reduction" policy was to reduce financial pressure while leaving long-term effects behind.'],
+   ans:'B',
+   explain:'B diễn đạt đúng: thay đổi chính sách cho thấy sự thừa nhận nhu cầu liên tục. A "solely motivated" quá cực đoan. C "prioritizing above all other" không có cơ sở. D "double reduction" còn có mục tiêu tạo cơ hội bình đẳng và loại bỏ dịch vụ kém.',
+   tip:'🔑 Inference = suy luận từ bài. Chú ý các từ cực đoan (solely, all, entirely, wholly) thường làm đáp án sai.'},
+  {num:18,type:'Inversion',
+   q:'Not only (18) ______ enjoy activities like traditional music performances and lion dances but you also take part in a lantern parade.',
+   opts:['A. are you','B. you do enjoy','C. can you','D. you can'],
+   ans:'C',
+   explain:'"Not only" đầu câu → đảo ngữ. Cấu trúc: Not only + auxiliary + subject + main verb. "can you" là đảo ngữ đúng. A "are you enjoy" sai ngữ pháp, B và D không có đảo ngữ.',
+   tip:'🔑 "Not only" + đảo ngữ: Not only CAN you enjoy... = You can also enjoy...'},
+  {num:20,type:'Connector',
+   q:'Please load food onto your tray and pay at the counter. When you finish eating, please clean off your tables. We do not have any wait staff. (20) ______, please dispose of your garbage.',
+   opts:['A. However','B. In contrast','C. Otherwise','D. As a result'],
+   ans:'D',
+   explain:'Không có nhân viên phục vụ (lý do) → yêu cầu khách tự dọn (kết quả logic). "As a result" = vì vậy, phù hợp nhất. A "However" chỉ tương phản, B "In contrast" so sánh, C "Otherwise" chỉ điều kiện hậu quả tiêu cực.',
+   tip:'🔑 As a result / Therefore / Consequently → kết quả tất yếu từ nguyên nhân đã nêu.'},
+  {num:23,type:'Grammar',
+   q:'Cities across the globe offer a wide range of foods from diverse cultures, (23) ______.',
+   opts:['A. provide a unique gastronomic experience celebrates that global diversity',
+         'B. providing a gastronomic unique experience celebrates global diversity',
+         'C. provided an experience that celebrates unique gastronomic global diversity',
+         'D. providing a unique gastronomic experience that celebrates global diversity'],
+   ans:'D',
+   explain:'D đúng: "providing" (phân từ hiện tại) bổ nghĩa cho cả câu; "that celebrates" là mệnh đề quan hệ đúng; trật tự tính từ "unique gastronomic" đúng. A thiếu liên từ. B sai trật tự tính từ và thiếu "that". C sai thì và trật tự tính từ.',
+   tip:'🔑 Trật tự tính từ: Opinion + Size + Age + Shape + Color + Origin + Material + Purpose + NOUN (unique gastronomic experience ✓)'},
+  {num:'25b',type:'Conditional',
+   q:'The diversity of thought enhances problem-solving. (25) ______, fostering international cooperation and enhancing personal development.',
+   opts:['A. If people embraced multiculturalism, societies would have become more enriched',
+         'B. Societies became more enriched if people embraced multiculturalism',
+         'C. If people embrace multiculturalism, societies will become more enriched',
+         'D. Societies would have become more enriched if people had embraced multiculturalism'],
+   ans:'C',
+   explain:'Câu điều kiện loại 1 (hiện tại – tương lai) diễn tả sự thật/chân lý, phù hợp với văn phong của đoạn. A và D là câu điều kiện loại 3 (quá khứ giả định). B sai cấu trúc (thiếu "would" ở mệnh đề chính).',
+   tip:'🔑 Context là key! Đoạn văn nói về sự thật/chân lý → dùng câu điều kiện loại 1.'},
+  {num:35,type:'Vocabulary',
+   q:'What is the word "absorbing" in paragraph 2 closest in meaning to?',
+   opts:['A. taking up','B. taking in','C. taking over','D. taking on'],
+   ans:'B',
+   explain:'"absorbing" = hấp thụ, thu vào trong. "taking in" = hấp thụ, thu vào. A "taking up" = chiếm (thời gian/không gian). C "taking over" = giành quyền kiểm soát. D "taking on" = đảm nhận (công việc).',
+   tip:'🔑 Phân biệt các phrasal verbs với "take": take up (chiếm/bắt đầu hoạt động), take in (hấp thụ/thu vào), take over (tiếp quản), take on (nhận/đảm nhận).'},
+  {num:29,type:'Relative clause',
+   q:'Artificial intelligence, (29) _______, is creating what experts call a "ChatGPT moment" for automated systems.',
+   opts:['A. will soon be considered the fundamental base of modern robotics development',
+         'B. which is now considered the fundamental base of modern robotics development',
+         'C. was until recently considered the fundamental base of modern robotics development',
+         'D. which is now considered a fundamental base for modern robotics development'],
+   ans:'D',
+   explain:'Chỗ trống nằm giữa hai dấu phẩy → mệnh đề quan hệ không xác định, bắt buộc có "which". Loại A và C (không có "which"). D dùng "a" (không xác định) và "for" (phục vụ cho) tự nhiên hơn B dùng "the" và "of".',
+   tip:'🔑 Dấu phẩy + mệnh đề quan hệ → KHÔNG dùng "that", chỉ dùng "which/who/whom/whose".'},
+  {num:1,type:'Vocabulary',
+   q:'Personal data at risk rarely vanish without consequence... Following a confirmed breach... investigators reported signs of (1) ______ access and systematic exfiltration of identifiers.',
+   opts:['A. legitimate','B. unauthorised','C. discretionary','D. peripheral'],
+   ans:'B',
+   explain:'Đây là vụ tấn công (breach) → truy cập trái phép. "unauthorised" = không được cho phép. A "legitimate" = hợp pháp (ngược nghĩa với ngữ cảnh). C "discretionary" = tùy ý. D "peripheral" = ngoại vi.',
+   tip:'🔑 Context: vụ tấn công, vi phạm dữ liệu → luôn liên quan đến "unauthorised/illegal/illicit access".'},
+  {num:3,type:'Vocabulary',
+   q:'...regulators have urged citizens to avoid downloading any material that (3) ______ from questionable repositories.',
+   opts:['A. compensates','B. derives','C. demands','D. urges'],
+   ans:'B',
+   explain:'"derives from" = bắt nguồn từ, được lấy từ → phù hợp: tài liệu có nguồn gốc từ kho lưu trữ đáng ngờ. A "compensates from" sai cấu trúc. C "demands from" sai nghĩa. D "urges from" sai cấu trúc.',
+   tip:'🔑 Động từ + "from": derive from, originate from, come from, stem from → tất cả đều mang nghĩa "có nguồn gốc từ".'},
+  {num:6,type:'Phrasal verb',
+   q:'Engineers are sifting through anomalous sessions... to (6) ______ any lingering footholds left by the adversaries.',
+   opts:['A. gloss over','B. root out','C. phase in','D. roll back'],
+   ans:'B',
+   explain:'"root out" = loại bỏ tận gốc, nhổ sạch → phù hợp ngữ cảnh tìm và diệt các điểm bám của kẻ tấn công. A "gloss over" = lờ đi (trái ý). C "phase in" = triển khai dần. D "roll back" = lùi lại.',
+   tip:'🔑 Đồng nghĩa với "root out": eradicate, eliminate, uproot, stamp out, get rid of.'},
+  {num:7,type:'Ordering',
+   q:'Sắp xếp văn bản về bảo vệ lao động gig: (c) as requested, roadmap... (b) gaps in accident insurance... (a) unified registry... (d) statutory definitions... (e) accountability spine.',
+   opts:['A. c–b–a–d–e','B. b–c–a–e–d','C. c–a–e–b–d','D. a–c–b–d–e'],
+   ans:'A',
+   explain:'c (giới thiệu mục đích) → b (nêu vấn đề từ khảo sát) → a (giải pháp 1: sổ đăng ký) → d (giải pháp 2: định nghĩa pháp lý) → e (kết luận: đảm bảo trách nhiệm). Cấu trúc: Giới thiệu → Vấn đề → Giải pháp → Kết luận.',
+   tip:'🔑 Văn bản hành chính: Mở đầu = bối cảnh/mục đích → Nêu vấn đề → Đề xuất giải pháp → Kết luận hành động.'},
+  {num:8,type:'Ordering',
+   q:'Sắp xếp đoạn đối thoại Bộ trưởng – Người lao động: (a) Minister: platforms offload risk... (b) Worker: ensure portability... (c) Minister: drafting provisions...',
+   opts:['A. a–b–c','B. c–a–b','C. a–c–b','D. c–b–a'],
+   ans:'A',
+   explain:'a (nêu vấn đề: nền tảng không chịu rủi ro) → b (phản hồi và đề xuất: quyền lợi theo người) → c (cam kết hành động: soạn thảo quy định). Cấu trúc hội thoại: Nêu vấn đề → Đề xuất → Phản hồi.',
+   tip:'🔑 Hội thoại: Xác định "Then/So/Therefore" → câu PHẢN HỒI, xác định "We\'re/I\'m" đang làm gì → câu CAM KẾT.'},
+  {num:9,type:'Ordering',
+   q:'Sắp xếp đoạn hội thoại về song ngữ: (a) Researcher: publication bias inflated claims... (b) Researcher: some tasks do show edges... (c) Parent: yet I keep reading... (d) Parent: so I should still raise my child bilingual? (e) Researcher: Absolutely...',
+   opts:['A. a–b–c–d–e','B. b–a–c–d–e','C. a–c–b–d–e','D. b–d–a–c–e'],
+   ans:'A',
+   explain:'a (vấn đề thiên lệch công bố) → b (thừa nhận lợi thế nhỏ hẹp) → c ("Yet" = phụ huynh phản biện) → d (câu hỏi trực tiếp) → e (trả lời và kết luận). "Yet" sau b cho thấy c phải đứng sau b.',
+   tip:'🔑 Từ nối "Yet" = tương phản → câu có "yet" phải đứng sau luận điểm mà nó phản biện.'},
+  {num:12,type:'Relative clause',
+   q:'...syllabi are sutured to earlier typologies, (12) ______.',
+   opts:['A. which long claimed that the conjugal family were universal.',
+         'B. which had long claimed that the conjugal family was universal.',
+         'C. that long claiming the conjugal family was universal.',
+         'D. having long claims the conjugal family was universal.'],
+   ans:'B',
+   explain:'Dùng "which" (có dấu phẩy → mệnh đề không xác định). Thì QKHT "had claimed" vì hành động xảy ra trước thời điểm hiện tại. "family was" đúng (số ít). A sai "family were", C "that" sau dấu phẩy + thiếu động từ, D cấu trúc sai.',
+   tip:'🔑 "family" là danh từ tập thể, trong tiếng Anh chuẩn thường được coi là số ít → dùng "was".'},
+  {num:14,type:'Grammar',
+   q:'...intersectional analyses, (14) ______, resist single-axis accounts of relatedness.',
+   opts:['A. themselves insisting that kinship be mapped across race, class, and gender',
+         'B. which themselves insists that kinship be mapped across race, class, and gender',
+         'C. themselves insisted that kinship is mapped across race, class, and gender',
+         'D. that themselves insisting kinship to be mapped across race, class, and gender'],
+   ans:'A',
+   explain:'"themselves insisting" là cụm phân từ (present participle) đúng, bổ nghĩa cho chủ ngữ. "insist that" + subjunctive mood → "be mapped" (không phải "is mapped"). B "insists" sai số, C "insisted" sai thì, D "that" thừa.',
+   tip:'🔑 Sau "insist that" → subjunctive mood: động từ giữ nguyên dạng nguyên mẫu (be mapped, not is mapped). Đặc điểm văn phong học thuật.'},
+  {num:16,type:'Inversion',
+   q:'Seldom do entrenched canons admit such critiques; (16) ______, and even then, the transformation unfolds irregularly.',
+   opts:['A. only after comparative evidence has accumulated do departments revise requirements',
+         'B. only after comparative evidence accumulates did departments revise requirements',
+         'C. only after comparative evidences have accumulated does departments revise requirements',
+         'D. only when comparative evidence had accumulate departments revised requirements'],
+   ans:'A',
+   explain:'A đúng: đảo ngữ chuẩn "only after + mệnh đề + do + chủ ngữ + động từ". Hiện tại hoàn thành + hiện tại đơn cho quy luật chung. B sai thì. C "evidences" sai (không đếm được), "does departments" sai. D thiếu đảo ngữ và sai động từ.',
+   tip:'🔑 Cấu trúc đảo ngữ: Only after + mệnh đề phụ + TRỢ ĐỘNG TỪ + CHỦ NGỮ + động từ chính.'},
+  {num:17,type:'Connector',
+   q:'Passengers increasingly pair VNeID with facial biometrics to breeze through checkpoints. (17) ______, uptake remains uneven across sites.',
+   opts:['A. Nevertheless','B. Furthermore','C. Meanwhile','D. Consequently'],
+   ans:'A',
+   explain:'Câu đầu: xu hướng tích cực (ngày càng nhiều người dùng). Câu sau: thực tế trái ngược (mức độ áp dụng không đồng đều). → Tương phản/nhượng bộ → "Nevertheless" (tuy nhiên, mặc dù vậy).',
+   tip:'🔑 Các từ nối tương phản: Nevertheless, However, Yet, Nonetheless, On the other hand, Despite this.'},
+  {num:21,type:'Word form',
+   q:'While early adopters extol (21) ______ gains – shorter dwell times and fewer document handoffs...',
+   opts:['A. tangible','B. tangibly','C. tangibility','D. tangibles'],
+   ans:'A',
+   explain:'Vị trí trước danh từ "gains" → cần tính từ (adjective). "tangible" (adj) = hữu hình, rõ rệt, cụ thể. B adverb, C noun (tính hữu hình), D noun số nhiều.',
+   tip:'🔑 Xác định từ loại cần điền: ___ + noun → cần adjective. ___ + verb → cần adverb.'},
+  {num:22,type:'Vocabulary',
+   q:'Ultimately, VNeID promises a (22) ______ for identity management that reduces friction while respecting due process.',
+   opts:['A. framework','B. breakthrough','C. consensus','D. clearance'],
+   ans:'B',
+   explain:'"breakthrough" = đột phá (tiến bộ vượt bậc) → phù hợp với ngữ cảnh công nghệ nhận dạng mới cải tiến vượt trội. A "framework" = khuôn khổ (cũng có thể nhưng ít nhấn mạnh tính đột phá). C "consensus" = đồng thuận. D "clearance" = sự thông qua/giải phóng.',
+   tip:'🔑 "breakthrough" thường dùng với: technology, research, medicine, science; nhấn mạnh sự đột phá lớn, thay đổi cục diện.'},
+  {num:'25c',type:'Summary',
+   q:'Which of the following best summarises paragraph 2 about globalization and culture?',
+   opts:['A. Cultural hybridity has been universally welcomed as globalization enables emerging economies to preserve their traditions.',
+         'B. The spread of global content guarantees cosmopolitanism by giving emerging economies equal representation.',
+         'C. John Tomlinson claims that globalization eliminates cultural imperialism, allowing marginalized voices to thrive.',
+         'D. Globalization simultaneously broadens cultural exchange and threatens uniqueness, often privileging dominant media powers at the expense of local production.'],
+   ans:'D',
+   explain:'D tóm gọn đúng: toàn cầu hóa vừa mở rộng giao lưu vừa đe dọa tính độc đáo, ưu ái cường quốc gây thiệt hại cho sản xuất địa phương. A "universally welcomed" sai. B "guarantees equal representation" sai (mất cân bằng). C hoàn toàn ngược ý Tomlinson.',
+   tip:'🔑 Đọc kỹ các từ cực đoan trong đáp án: universally, guarantees, eliminates → thường sai trong bài đọc hiểu.'},
+  {num:33,type:'NOT mentioned',
+   q:'According to the passage about genetically modified mosquitoes, which of the following is NOT mentioned?',
+   opts:['A. The project involved collaboration between Target Malaria and other research groups.',
+         'B. The modified mosquitoes would reduce the ability to spread disease in Africa.',
+         'C. The project received funding of 50 million dollars from international health organizations.',
+         'D. The research plan includes clear guidelines for field trials and regulatory approval.'],
+   ans:'C',
+   explain:'A được đề cập rõ ràng. B được đề cập (reducing ability to spread disease). C KHÔNG có bất kỳ thông tin nào về con số tài trợ trong bài. D được đề cập (clear guidelines, clear pathway, clear steps).',
+   tip:'🔑 Dạng NOT mentioned: đọc kỹ từng đáp án và đối chiếu với bài. Đáp án sai thường rất cụ thể (con số, tên người) hoặc suy diễn quá xa.'},
+  {num:31,type:'Inference',
+   q:'According to paragraph 1 of the "techno-feudalism" passage, the author suggests that the term "techno-feudalism" can ______.',
+   opts:['A. yield policy remedies precisely because it avoids structural inquiry',
+         'B. blur analytical rigor by substituting moral denunciation for explanation',
+         'C. demonstrate that platforms now operate outside capitalist dynamics',
+         'D. neutralize public outrage by reframing platforms as benign intermediaries'],
+   ans:'B',
+   explain:'Tác giả viết: "it prescribes a politics of denunciation that risks confusing moral outrage with structural analysis" → thuật ngữ này làm mờ phân tích cấu trúc bằng sự phẫn nộ đạo đức. B diễn đạt chính xác ý này.',
+   tip:'🔑 Suy luận từ bài: Tìm câu văn gốc chứa ý tương ứng. Đáp án sai thường phủ định, suy diễn quá xa, hoặc thêm ý mới.'},
+  {num:5,type:'Ordering',
+   q:'Sắp xếp các câu về chiến lược an ninh sinh học: (a) Yet field deployments exposed gaps: genomic surveillance lagged in peri-urban clinics, and fragmented data trusts chilled cross-border sharing when speed mattered most. (b) Policymakers framed biosecurity as a civic commons, coupling early-warning networks with transparent governance to sustain legitimacy during emergency powers. (c) A resilient strategy therefore blends rapid detection with privacy-preserving protocols and reciprocal data-sharing compacts negotiated in peacetime. (d) The blueprint began promisingly – sentinel sequencing, wastewater analytics, and public dashboards clarified risk without sensationalism. (e) Lessons learned suggest that capacity must be modular: labs, logistics, and legal authorisations should scale without sacrificing due process.',
+   opts:['A. d – a – b – e – c','B. b – d – a – e – c','C. d – b – a – c – e','D. a – d – b – e – c'],
+   ans:'A',
+   explain:'Vai trò từng câu: (d) Mở đầu – kế hoạch ban đầu đầy hứa hẹn. (a) Tương phản – "Yet" bộc lộ lỗ hổng triển khai thực tế. (b) Phản ứng chính sách – sau khi thấy lỗ hổng, nhà hoạch định tái cấu trúc vấn đề. (e) Bài học rút ra – từ thực tế, rút ra yêu cầu năng lực mô-đun. (c) Kết luận – "therefore" dẫn đến chiến lược bền vững tổng hợp. || Tại sao B sai: b (chính sách) mở đầu mà chưa có bối cảnh kế hoạch ban đầu → thiếu mạch tự nhiên. || Tại sao C sai: b (chính sách) xuất hiện trước a (lỗ hổng) – nhưng lẽ ra phải thấy lỗ hổng rồi mới có phản ứng chính sách. || Tại sao D sai: câu "Yet..." (a) đứng đầu mà không có mệnh đề tích cực trước đó → "Yet" mất tác dụng tương phản.',
+   tip:'🔑 "Yet" = tương phản → PHẢI có câu tích cực trước. "Therefore" = kết luận logic → đứng CUỐI. "Lessons learned" → trước kết luận. Cấu trúc chuẩn: Bối cảnh tích cực → Tương phản (Yet) → Phản ứng → Bài học → Kết luận (Therefore).'},
+  {num:6,type:'Vocabulary',
+   q:'For ______ fishermen whose livelihoods depend on the sea, survival often rests on a network of island infirmaries staffed by officers trained to operate in austere conditions.',
+   opts:['A. a multitude of','B. no small number of','C. a good many','D. a host of'],
+   ans:'D',
+   explain:'A "a multitude of": trang trọng, nhưng thường thiên về số lượng trừu tượng hoặc vật thể (a multitude of problems, a multitude of stars) – với người thì hơi khô khan. B "no small number of": mang tính nhấn mạnh theo lối phủ định của phủ định, hơi dài dòng. C "a good many": thường dùng trong văn nói hoặc phong cách thân mật, không phù hợp văn báo chí học thuật. D "a host of": trang trọng, thường đi với danh từ chỉ NGƯỜI (a host of angels, a host of volunteers, a host of fishermen), rất tự nhiên trong văn báo chí, gợi hình ảnh cộng đồng đông đảo ấm áp. || "Fishermen" là người → "a host of" là lựa chọn kinh điển. "a multitude of fishermen" không sai nhưng kém tự nhiên hơn.',
+   tip:'🔑 Bộ tứ cần phân biệt: a host of + NGƯỜI (tự nhiên nhất) | a multitude of + trừu tượng/vật thể | a good many + thân mật/văn nói | no small number of + nhấn mạnh nhưng dài dòng. Văn báo chí: "a host of local residents/fishermen/volunteers" là chuẩn mực.'},
+  {num:8,type:'Verb tense',
+   q:'Working through the night, the facility (8) ______ routinely to stabilise thousands of cases, from crushed hands to suspected strokes, before dawn flights can reach them.',
+   opts:['A. has managed','B. manages','C. is managing','D. managed'],
+   ans:'B',
+   explain:'"Routinely" là trạng từ chỉ tần suất → cần thì Hiện tại đơn diễn tả hành động lặp đi lặp lại mang tính quy luật. Chủ ngữ "the facility" (số ít) → thêm -s. || A "has managed" (HTHT): nhấn mạnh kết quả hoặc trải nghiệm, KHÔNG dùng với "routinely" chỉ thói quen. || C "is managing" (HTTD): diễn tả hành động đang xảy ra tại thời điểm nói, không phải thói quen. || D "managed" (QKĐ): hành động đã xảy ra và kết thúc trong quá khứ, không phù hợp với "routinely" trong ngữ cảnh hiện tại.',
+   tip:'🔑 Dấu hiệu HTĐ (thói quen/quy luật): always, usually, often, routinely, regularly, normally, every day/week. Khi thấy "routinely" → KHÔNG dùng HTHT (has managed) hay HTTD (is managing).'},
+  {num:10,type:'Vocabulary',
+   q:'The doctors, ______ in their duties, also shoulder the role of public-health stewards – running vaccination drives, monitoring outbreaks, and translating complex advice into plain speech over crackly radios.',
+   opts:['A. steadfast','B. unflinching','C. evasive','D. skittish'],
+   ans:'A',
+   explain:'A "steadfast" /ˈsted.fɑːst/: kiên định, vững vàng, trung thành, không thay đổi trước khó khăn. Đồng nghĩa: resolute, unwavering, committed, dedicated, firm, loyal. Trái nghĩa: irresolute, wavering, fickle, disloyal. || B "unflinching" /ʌnˈflɪn.tʃɪŋ/: không nao núng, không chùn bước khi đối mặt với nguy hiểm hoặc đau đớn. Đồng nghĩa: determined, intrepid, fearless. Trái nghĩa: hesitant, timid. → Thích hợp cho tình huống đối mặt nguy hiểm, không phải sự tận tụy chuyên nghiệp. || C "evasive" /ɪˈveɪ.sɪv/: lảng tránh, né tránh, không trả lời thẳng. Đồng nghĩa: elusive, indirect. Trái nghĩa: direct, candid. → TRÁI nghĩa với ngữ cảnh. || D "skittish" /ˈskɪt.ɪʃ/: nhút nhát, dễ sợ hãi, bồn chồn, thất thường. Đồng nghĩa: nervous, jumpy, excitable. → TRÁI nghĩa. || Ngữ cảnh ca ngợi sự tận tâm, kiên định của bác sĩ trong điều kiện khắc nghiệt → "steadfast" tối ưu nhất.',
+   tip:'🔑 steadfast ≈ dedicated, committed, loyal (nhấn mạnh SỰ TẬN TÂM BỀN BỈ). unflinching ≈ fearless, intrepid (nhấn mạnh DŨNG CẢM TRƯỚC NGUY HIỂM). Hai từ gần nghĩa nhưng khác sắc thái – ngữ cảnh "duties" → steadfast là chuẩn.'},
+  {num:15,type:'Opposite meaning',
+   q:'The word "combustible" in paragraph 3 is OPPOSITE in meaning to ______.',
+   opts:['A. inflammable','B. placid','C. volatile','D. incendiary'],
+   ans:'B',
+   explain:'"combustible" (adj): dễ cháy; dễ bùng nổ (nghĩa bóng). Đồng nghĩa: flammable, inflammable, ignitable; volatile, explosive, incendiary. || A "inflammable": dễ cháy → ĐỒNG nghĩa (BẪY: tiền tố "in-" ở đây KHÔNG phải phủ định mà mang nghĩa "vào trong", giống như "inflame"). || B "placid": bình tĩnh, yên ả, không dễ bị kích động. Đồng nghĩa: calm, tranquil, serene, peaceful. → TRÁI nghĩa ✓. || C "volatile": dễ bay hơi; hay thay đổi, dễ bùng nổ (tình huống, thị trường) → ĐỒNG nghĩa. || D "incendiary": gây cháy; kích động (lời nói, hành động nhằm gây bạo loạn) → ĐỒNG nghĩa. || Nhóm đồng nghĩa: combustible = inflammable = volatile = incendiary. Chỉ "placid" là trái nghĩa.',
+   tip:'🔑 BẪY KINH ĐIỂN của đề thi: "inflammable" ≠ "non-flammable". Cả "flammable" lẫn "inflammable" đều có nghĩa "dễ cháy". Khi thấy A,C,D cùng nhóm nghĩa → đáp án là B (từ còn lại). Mẹo: combustible, volatile, incendiary, inflammatory đều cùng trường nghĩa "bùng nổ/kích động".'},
+  {num:17,type:'TRUE/FALSE',
+   q:'Which of the following is TRUE according to paragraph 4 (about platform design and deliberation)?',
+   opts:['A. Platform design influences exposure by shaping not only recommendations but also user frictions that structure deliberation and sharing.','B. Polarization inevitably intensifies as platforms increase cross-cutting prompts and slow down virality through tempo controls.','C. Institutional responsibility has waned because regulatory climates preclude platforms from altering their interfaces.','D. Exposure patterns derive exclusively from predictive models of preference and are unaffected by reporting tools.'],
+   ans:'A',
+   explain:'Câu gốc đoạn 4: "platforms shape exposure not merely by predicting preference but by designing the frictions that enable deliberation – reporting tools, cross-cutting prompts, and tempo controls for virality." || A: Diễn đạt chính xác ý này: không chỉ dự đoán sở thích mà còn thiết kế "frictions" → ✓. || B: "inevitably intensifies" – bài nói "Whether this... remains an empirical question" (vẫn là câu hỏi thực nghiệm, chưa kết luận) → SAI vì từ "inevitably". || C: Bài bắt đầu bằng "urges a re-centering of institutional responsibility" (kêu gọi tái tập trung), không phải suy yếu → SAI. || D: "exclusively from predictive models... unaffected by reporting tools" – bài nói ngược lại: còn có reporting tools, cross-cutting prompts → SAI hoàn toàn.',
+   tip:'🔑 Từ cực đoan thường làm SAI đáp án: "inevitably" (B), "exclusively" (D), "has waned/entirely/solely" → gần như luôn sai trong bài đọc hiểu. Đáp án đúng dùng ngôn ngữ trung tính, phản ánh trực tiếp câu văn gốc.'},
+  {num:18,type:'Paragraph identification',
+   q:'Which paragraph mentions mechanisms that attempt to curb misinformation while introducing questions about authority?',
+   opts:['A. Paragraph 1','B. Paragraph 2','C. Paragraph 3','D. Paragraph 4'],
+   ans:'C',
+   explain:'Đoạn văn được trích dẫn (bắt đầu "During election cycles and public-health crises, these dynamics become more combustible...") chứa: (1) Các cơ chế chống thông tin sai: "labeling disputed content, down-ranking coordinated manipulation, and boosting authoritative outlets" và (2) Câu hỏi về tính hợp pháp: "they also raise normative questions about legitimacy and transparency." || Dựa vào câu hỏi số 15 đã xác nhận: từ "combustible" = paragraph 3. Đây chính là đoạn 3.',
+   tip:'🔑 Chiến thuật cross-referencing: Dùng thông tin từ CÂU HỎI KHÁC trong cùng bộ đề. Câu 15 đã xác định "combustible" ở paragraph 3 → câu hỏi 18 cũng hỏi về đoạn chứa "combustible" → đáp án C. Tiết kiệm thời gian đọc lại toàn bài.'},
+  {num:19,type:'Paragraph identification',
+   q:'Which paragraph mentions the argument that personalization\'s isolating effects are often exaggerated relative to offline habits?',
+   opts:['A. Paragraph 4','B. Paragraph 3','C. Paragraph 2','D. Paragraph 1'],
+   ans:'D',
+   explain:'Đoạn văn được trích dẫn (bắt đầu "The phrase \'filter bubble\' has become a rhetorical catch-all for the anxieties attending personalized media...") chứa câu cốt lõi: "The specter of informational isolation, though not imaginary, is often overstated when compared with offline routines such as selective friendship networks or partisan news habits." → Đây là Paragraph 1 (đoạn đầu tiên giới thiệu khái niệm "filter bubble" và đặt câu hỏi). Đoạn mở bài thường giới thiệu khái niệm trung tâm và nêu luận điểm phản biện.',
+   tip:'🔑 Nhận diện Paragraph 1 qua: "filter bubble" (khái niệm được giới thiệu), "overstated" (phản biện ngay từ đầu), "offline routines" (so sánh). Đoạn mở bài thường đặt vấn đề và nêu luận điểm ngược chiều để tạo sức căng cho toàn bài.'},
+  {num:24,type:'Vocabulary',
+   q:'The contest attracted over 180 photographers and 445 eligible submissions – a (24) ______ increase compared to the previous year.',
+   opts:['A. marginal','B. negligible','C. substantial','D. moderate'],
+   ans:'C',
+   explain:'A "marginal": nhỏ, không đáng kể, chỉ ở mức tối thiểu. Đồng nghĩa: minimal, slight, minor. Ví dụ: tăng 0.5%. || B "negligible": không đáng kể, có thể bỏ qua (quá nhỏ). Đồng nghĩa: trivial, insignificant. Ví dụ: tăng 0.01%. || C "substantial": lớn, đáng kể, quan trọng. Đồng nghĩa: considerable, significant, sizable, ample. Ví dụ: tăng 50%. || D "moderate": vừa phải, ở mức trung bình. Đồng nghĩa: average, medium, modest. Ví dụ: tăng 10–15%. || Con số 180+ nhiếp ảnh gia và 445 bài dự thi là ấn tượng → substantial. "Moderate" (D) cũng dùng được nhưng không nhấn mạnh được mức độ đáng kể của sự kiện.',
+   tip:'🔑 Thang mức độ từ nhỏ đến lớn: negligible → marginal → moderate → substantial → enormous/dramatic. Khi đề cập số lượng lớn, ấn tượng → substantial/considerable/significant. Trái nghĩa của substantial: negligible, insignificant, paltry, trivial.'},
+  {num:27,type:'Word form',
+   q:'Its unique design has earned it global ______ as one of the world\'s most striking pedestrian bridges.',
+   opts:['A. recognize','B. recognizable','C. recognition','D. recognizably'],
+   ans:'C',
+   explain:'Phân tích cấu trúc: "earned it [global ______]" → "earned sb sth" = mang lại cho ai điều gì → tân ngữ trực tiếp (sth) phải là DANH TỪ. "global" là tính từ bổ nghĩa cho danh từ đó. || A "recognize": động từ → ❌. B "recognizable": tính từ → ❌. D "recognizably": trạng từ → ❌. C "recognition" /ˌrekəɡˈnɪʃn/: danh từ = sự công nhận, sự nổi tiếng → ✓. || Ví dụ tương tự: The invention earned him global recognition / fame / respect / praise.',
+   tip:'🔑 Cách nhớ họ từ "recognize": recognize (v) → recognition (n) → recognizable (adj) → recognizably (adv). "earn sb + danh từ": earn sb fame / recognition / respect / praise / a reputation / a place in history.'},
+  {num:'31b',type:'Inference',
+   q:'According to paragraph 1 (techno-feudalism), the author suggests that the term "techno-feudalism" can ______.',
+   opts:['A. yield policy remedies precisely because it avoids structural inquiry','B. blur analytical rigor by substituting moral denunciation for explanation','C. demonstrate that platforms now operate outside capitalist dynamics','D. neutralize public outrage by reframing platforms as benign intermediaries'],
+   ans:'B',
+   explain:'Câu văn gốc: "Yet the metaphor does more than describe; it prescribes a politics of denunciation that risks confusing moral outrage with structural analysis." || B: "blur analytical rigor by substituting moral denunciation for explanation" = làm mờ tính chặt chẽ phân tích bằng cách thay thế giải thích bằng sự lên án đạo đức → Đây chính là ý tác giả viết. ✓ || A: "yield policy remedies... avoids structural inquiry" → Sai, trái ngược hoàn toàn: chính vì né tránh phân tích cấu trúc nên KHÔNG cho ra giải pháp chính sách tốt. || C: "platforms operate outside capitalist dynamics" → Sai, tác giả nói "may, on closer inspection, be capitalism with novel instruments." || D: "neutralize public outrage... benign intermediaries" → Sai, không có cơ sở trong đoạn.',
+   tip:'🔑 Suy luận từ bài: Luôn tìm câu văn gốc chứa ý tương ứng. Ở đây: "confusing moral outrage with structural analysis" → B "substituting moral denunciation for explanation". Hai cách diễn đạt khác nhau nhưng cùng một ý.'},
+  {num:35,type:'Inference',
+   q:'Which of the following is implied about antitrust in the text (techno-feudalism passage)?',
+   opts:['A. It is sufficient when paired with sectoral price caps and wage boards.','B. It is necessary but inadequate without confronting infrastructural control.','C. It is largely symbolic and should be abandoned in digital markets.','D. It invariably fragments platforms and restores pre-platform competition.'],
+   ans:'B',
+   explain:'Câu văn gốc: "If the latter, then antitrust alone cannot suffice; regulation must reckon with infrastructural power, from cloud stacks to payments rails." || "antitrust alone cannot suffice" → antitrust không đủ khi dùng một mình. || "regulation must reckon with infrastructural power" → cần đối đầu với sức mạnh hạ tầng. || Kết hợp: antitrust cần thiết (được nhắc đến như công cụ hiện hữu) nhưng không đủ → Đây chính là B. || A: "sufficient when paired with price caps and wage boards" → không có cơ sở, bài không đề cập. C: "largely symbolic, should be abandoned" → Sai, bài không nói vậy. D: "invariably fragments platforms" → Sai, không có cơ sở.',
+   tip:'🔑 "alone cannot suffice" = cần nhưng không đủ (necessary but not sufficient). "must reckon with" = phải đối đầu, phải tính đến. Ghép hai ý lại → B là kết luận chính xác từ văn bản.'},
+  {num:37,type:'Paraphrase',
+   q:'Paraphrase: "To call these actors mere rentiers is to ignore how their laboratories of optimization also reorganize labor, time, and attention across entire sectors."',
+   opts:['A. Labeling platforms as pure rent collectors overlooks the transformative effects of their R&D on sectoral rhythms, masking the productive dimensions that intensify capitalism\'s reach.','B. Calling platforms rent-seekers acknowledges how their optimization eclipses production, proving contemporary firms cannot influence schedules or industries substantially.','C. Describing platform owners as rentiers highlights that innovation labs have negligible effects on labor processes and should not be a policy focus.','D. Branding platforms as rentiers precisely captures their contribution to efficiency because research facilities primarily defend static market shares rather than engineer change.'],
+   ans:'A',
+   explain:'Nghĩa câu gốc: Gọi các chủ thể này chỉ là "kẻ ăn bám" (rentier) là bỏ qua việc các phòng thí nghiệm tối ưu hóa của họ cũng TÁI TỔ CHỨC lao động, thời gian và sự chú ý trên toàn bộ ngành → Họ không chỉ hút lợi nhuận thụ động mà còn có tác động sản xuất, cải tổ xã hội. || A: "overlooks the transformative effects of their R&D on sectoral rhythms, masking productive dimensions" = bỏ qua tác động chuyển đổi → ✓ Sát nghĩa nhất. || B: "proving contemporary firms cannot influence schedules or industries substantially" → Ngược nghĩa: câu gốc nói họ CÓ ảnh hưởng lớn. || C: "innovation labs have negligible effects" → Ngược nghĩa: câu gốc nói tác động là đáng kể và bị bỏ qua. || D: "precisely captures their contribution" → Ngược nghĩa: câu gốc PHÊ PHÁN việc gán mác đó là không chính xác.',
+   tip:'🔑 Paraphrase đúng = đổi cấu trúc + giữ nguyên ý + KHÔNG đảo ngược sắc thái. Ba đáp án B,C,D đều ĐẢO NGƯỢC nghĩa của câu gốc. Chỉ A giữ đúng: "gán mác sai → bỏ qua tác động thực".'},
+  {num:'38a',type:'Inference',
+   q:'Which of the following can be reasonably inferred from paragraph 3 (geopolitical / techno-feudalism)?',
+   opts:['A. As states instrumentalize platforms, the line between market and command increasingly dissolves, generating a composite regime where accountability becomes a central design problem.','B. Government reliance on platforms for strategic aims will soon eliminate private discretion, reverting the economy to pre-capitalist formations with hereditary privilege.','C. National security imperatives have insulated platforms from coordinating with market actors, causing efficiency losses likely to end platform predominance.','D. Because states conscript platforms, corporate power can no longer be contested through legislative means and must be confronted solely via consumer boycotts.'],
+   ans:'A',
+   explain:'Các luận điểm trong đoạn 3: (1) "blurring the boundary between corporate prerogative and sovereign design" = ranh giới công-tư mờ nhòa. (2) "The result is not neo-feudal fragmentation but multiplex capitalism, in which public and private apparatuses interlock" = chế độ hỗn hợp. (3) "the central question is less whether markets survive than who programs them, to whose advantage, and with what forms of accountability" = trách nhiệm giải trình là vấn đề trung tâm. || A: Tổng hợp đúng cả 3 ý → ✓. || B: "reverting to pre-capitalist formations with hereditary privilege" → Sai, bài nói "not neo-feudal". || C: "insulated platforms from coordinating with market actors" → Sai, bài nói interlock (đan xen), không phải insulate (cách ly). || D: "solely via consumer boycotts" → Sai, không được đề cập.',
+   tip:'🔑 "multiplex capitalism" = chế độ PHỨC HỢP công-tư (không phải neo-feudal). "interlock" = đan xen, gắn kết (không phải cách ly hay thống trị một chiều). Câu kết của đoạn về accountability = manh mối suy luận cho A.'},
+  {num:11,type:'Preposition phrase',
+   q:'Microsoft\'s newly enhanced Copilot for Windows represents a major breakthrough ______ intelligent productivity.',
+   opts:['A. in the face of','B. in the light of','C. in the realm of','D. in the prime of'],
+   ans:'C',
+   explain:'A "in the face of": đối mặt với, mặc dù (khó khăn, nguy hiểm). Đồng nghĩa: despite, in spite of, when confronted with. Ví dụ: "They succeeded in the face of great adversity." || B "in the light of": xét theo, căn cứ vào, dựa trên (thông tin mới). Đồng nghĩa: considering, given, taking into account. Ví dụ: "In the light of recent events, we changed our plan." || C "in the realm of": trong lĩnh vực (của). Đồng nghĩa: in the field of, in the domain of, in the area of, within the scope of. Ví dụ: "a breakthrough in the realm of artificial intelligence." ✓ || D "in the prime of": trong thời kỳ đỉnh cao (thường nói về tuổi trẻ, sức khỏe, sự nghiệp). Đồng nghĩa: at the peak of, in the heyday of. Ví dụ: "He died in the prime of his life."',
+   tip:'🔑 "a breakthrough in the realm of [lĩnh vực]" = cụm cố định trong văn viết học thuật và báo chí. Bộ tứ giới từ cần nhớ: realm/field/domain/sphere of (lĩnh vực) | face of (đối mặt) | light of (xét theo) | prime of (đỉnh cao).'},
+  {num:13,type:'Preposition',
+   q:'Copilot can now connect ______ both Outlook and Gmail, intelligently retrieving data from emails and contact lists.',
+   opts:['A. by','B. at','C. with','D. to'],
+   ans:'D',
+   explain:'"connect to" là giới từ chuẩn khi nói về thiết bị hoặc phần mềm kết nối ĐẾN một dịch vụ/hệ thống bên ngoài. Ví dụ: connect to Wi-Fi / connect to a server / connect to a database / connect to Outlook. || "connect with" thường dùng khi nói về kết nối giữa người với người hoặc sự tương tác hai chiều mang tính cảm xúc/xã hội. Ví dụ: connect with friends / connect with the audience / connect with customers. || "by" và "at" không dùng với "connect" trong ngữ cảnh này.',
+   tip:'🔑 connect TO + dịch vụ/thiết bị/hệ thống (Wi-Fi, server, Outlook, Gmail, printer, database) → mang tính kỹ thuật, một chiều. connect WITH + người/đối tượng xã hội → mang tính tương tác, hai chiều. Đây là lỗi giới từ cực kỳ phổ biến trong đề thi.'},
+  {num:14,type:'Phrasal verb',
+   q:'Users can request it to ______ invoices issued by a particular company or display a contact\'s recent correspondence.',
+   opts:['A. turn up','B. look up','C. set up','D. bring up'],
+   ans:'B',
+   explain:'A "turn up": (1) xuất hiện bất ngờ (She turned up late); (2) tăng âm lượng/nhiệt độ (turn up the volume); (3) tìm thấy/để lộ ra (The search turned up new evidence) → Không phải hành động chủ động tra cứu theo yêu cầu. || B "look up": tra cứu, tìm kiếm thông tin (trong từ điển, cơ sở dữ liệu, danh sách). Đồng nghĩa: search for, retrieve, query, find. → ✓ Phù hợp nhất: người dùng yêu cầu tra cứu hóa đơn. || C "set up": thiết lập, cài đặt, sắp xếp → Không liên quan đến tra cứu thông tin. || D "bring up": (1) đề cập (bring up a topic); (2) nuôi dưỡng (brought up children); (3) làm xuất hiện trên màn hình (bring up a window) → Nghĩa 3 gần nhưng "look up" chuẩn hơn cho tra cứu dữ liệu có cấu trúc.',
+   tip:'🔑 look up = tra cứu thông tin (từ điển, database, danh bạ) | set up = thiết lập/cài đặt | bring up = đề cập/hiển thị | turn up = xuất hiện/tăng. Đây là dạng câu phrasal verb đặc trưng của đề THPTQG – cần học nghĩa từng cụm.'},
+  {num:'24b',type:'Vocabulary',
+   q:'The word "fungible" in paragraph 2 (living shoreline) mostly means ______.',
+   opts:['A. interchangeable and tradable with equivalent units in a market context','B. uniquely valuable and irreplaceable, similar to rare ecological species','C. inherently unstable and prone to unpredictable fluctuations','D. limited to short-term pilot schemes without scalability'],
+   ans:'A',
+   explain:'"fungible" (adj): có thể hoán đổi; các đơn vị có giá trị như nhau, có thể trao đổi hoặc thay thế cho nhau trong giao dịch. || Trong đoạn văn: "Each credit – representing one metric ton of carbon dioxide – may be traded or retired, creating a fungible asset class linked to ecosystem resilience." Mỗi tín chỉ = 1 tấn CO₂, bình đẳng và có thể giao dịch → "fungible" rõ ràng mang nghĩa A. || B "uniquely valuable and irreplaceable" = trái nghĩa hoàn toàn → ❌. C "inherently unstable" = không ổn định → ❌. D "limited to short-term pilot schemes" = không liên quan → ❌.',
+   tip:'🔑 "fungible" là thuật ngữ tài chính-pháp lý: tiền mặt, cổ phiếu phổ thông, tín chỉ carbon, vàng đều là "fungible" (1 đơn vị = 1 đơn vị khác). Trái nghĩa nổi tiếng: NFT = Non-Fungible Token (mỗi token là duy nhất, không hoán đổi được). Đây là từ vựng thuộc chủ đề kinh tế-môi trường.'},
+  {num:'25d',type:'Summary',
+   q:'Which of the following best summarises paragraph 2 (living shoreline / carbon credits)?',
+   opts:['A. The living shoreline secures both climate mitigation and biodiversity by preventing marsh drowning, while simultaneously serving as a carbon-credit-generating mechanism.','B. The project\'s construction costs remain unrecoverable because carbon credits are insufficiently valuable to offset investment.','C. The protocol guarantees biodiversity but excludes any contribution to climate mitigation since only financial trading is emphasised.','D. Seawall construction is highlighted as more reliable than living shorelines for balancing economic and ecological objectives.'],
+   ans:'A',
+   explain:'Đoạn 2 có 4 ý chính: (1) Chi phí xây dựng được hoàn trả qua tín chỉ carbon → tạo tài sản có thể hoán đổi. (2) Bờ sống duy trì thảm thực vật, ổn định trầm tích → ngăn phát thải carbon và tăng hấp thụ. (3) Không có can thiệp → đất ngập nước chìm → mất đa dạng sinh học + giải phóng khí nhà kính. (4) Kết luận: bờ sống vừa là giải pháp kỹ thuật, vừa là công cụ thị trường carbon. || A tóm đủ cả 4 ý chính → ✓. || B "costs remain unrecoverable" → Sai, bài nói "will be reimbursed". || C "excludes any contribution to climate mitigation" → Sai, bài nêu rõ cả hai mục tiêu. || D "seawall construction is more reliable" → Sai, tường biển không được nhắc đến trong đoạn này.',
+   tip:'🔑 Tóm tắt đoạn cần bao hàm ĐỦ ý chính và KHÔNG sai lệch sắc thái. Loại đáp án dùng từ tuyệt đối không có trong bài: "unrecoverable", "excludes any", "more reliable than". Đây là kỹ năng đọc hiểu cốt lõi.'},
+  {num:'27b',type:'Inference',
+   q:'Based on the passage, how does the Virginia Point shoreline serve as evidence for scaling up similar projects?',
+   opts:['A. It proved that traditional seawalls could outperform ecological structures in resisting erosion.','B. It demonstrated ecological recovery through the re-emergence of sensitive avian species and habitat resilience.','C. It highlighted the financial risks of commodification when credits failed to generate returns.','D. It exposed the fragility of marshland ecosystems by accelerating their drowning process.'],
+   ans:'B',
+   explain:'Câu văn gốc: "Scenic Galveston\'s earlier shoreline at Virginia Point already demonstrated measurable ecological recovery, including the return of rare avian species." → Bằng chứng thực tế: (1) Phục hồi sinh thái có thể đo lường được (measurable ecological recovery). (2) Sự trở lại của các loài chim quý hiếm (rare avian species). → B diễn đạt chính xác cả hai điểm. || A "seawalls outperform ecological structures" → Sai, bài so sánh ngược lại (living shorelines tốt hơn seawalls). || C "financial risks when credits failed" → Sai, không liên quan đến Virginia Point. || D "exposed fragility by accelerating drowning" → Hoàn toàn ngược nghĩa (bài nói VPt cho thấy PHỤC HỒI, không phải suy thoái).',
+   tip:'🔑 "Evidence for scaling up" = bằng chứng dự án nhỏ đã thành công, có thể nhân rộng. Tìm câu văn gốc về Virginia Point và đối chiếu. Từ khóa: "measurable ecological recovery", "return of rare avian species" → B.'},
+  {num:'31c',type:'Sentence insertion',
+   q:'Where in the passage (living shoreline) would this sentence best fit? "Such an approach, while novel, inevitably raises the question of whether pricing nature risks reducing it to mere commodity status."',
+   opts:['A. [I] – sau câu đầu đoạn 1','B. [II] – giữa đoạn 1','C. [III] – trước câu "Yet critics warn that commodifying..."','D. [IV] – giữa đoạn 3 (chức năng bờ sống)'],
+   ans:'C',
+   explain:'"Such an approach" là anaphoric reference (đại từ chỉ ngược) → phải có "approach" được đề cập TRƯỚC ĐÓ. Phương pháp gán giá trị tài chính cho thiên nhiên (blue carbon approach) đã được giới thiệu ở đoạn 1. || Tại [III]: Đặt câu này trước "Yet critics warn that commodifying marshlands risks subordinating ecological value to speculative trading..." tạo cầu nối hoàn hảo: câu chèn đặt câu hỏi → "Yet critics warn" trả lời câu hỏi đó. || [I]: Đầu đoạn 1 – chưa đề cập đến "pricing nature" → "such an approach" không có referent. || [II]: Giữa đoạn 1 – đang mô tả dự án, chưa thích hợp để đặt câu hỏi phê phán. || [IV]: Đoạn 3 (chức năng bờ sống + Virginia Point) – không liên quan đến hàng hóa hóa thiên nhiên.',
+   tip:'🔑 Hai bước chèn câu: (1) Tìm referent của "such an approach" ở câu trước (approach đã được đề cập). (2) "inevitably raises the question" phải dẫn vào câu TIẾP THEO là phê phán/trả lời câu hỏi đó. Chỉ [III] thỏa mãn cả hai điều kiện.'},
+  {num:33,type:'Vocabulary',
+   q:'The word "instrumentalize" in paragraph 1 (corporate ethics) is closest in meaning to ______.',
+   opts:['A. recount as a historical anecdote','B. romanticize for aesthetic appeal','C. leverage for strategic ends','D. enshrine as a moral absolute'],
+   ans:'C',
+   explain:'"instrumentalize" (động từ): sử dụng một thứ gì đó như công cụ/phương tiện để đạt mục đích thực dụng, thường mang tính chiến lược hoặc vụ lợi. Trong câu: "corporations instrumentalize moral vocabularies – DEI, sustainability, anti-discrimination – not only to mitigate risk but to manufacture legitimacy." → Tận dụng từ vựng đạo đức như công cụ để đạt mục đích kinh doanh. || A "recount as a historical anecdote" = kể lại như giai thoại lịch sử → ❌ Không liên quan. || B "romanticize for aesthetic appeal" = lãng mạn hóa vì tính thẩm mỹ → ❌ Không liên quan. || C "leverage for strategic ends" = tận dụng cho mục đích chiến lược → ✓ Sát nghĩa nhất. || D "enshrine as a moral absolute" = tôn sùng như giá trị đạo đức tuyệt đối → ❌ Ngược lại hoàn toàn với nghĩa thực dụng/vụ lợi.',
+   tip:'🔑 instrumentalize ≈ exploit, leverage, weaponize, co-opt, use as a tool for strategic ends. Từ này LUÔN mang hàm ý tiêu cực: sử dụng thứ gì đó (thường là cao quý) cho mục đích thực dụng, không chân thật. Trái nghĩa: genuinely embrace, authentically commit to.'},
+  {num:36,type:'Opposite meaning',
+   q:'The word "boundary" in paragraph 2 (corporate ethics) is OPPOSITE in meaning to ______.',
+   opts:['A. seamless continuum','B. demarcating perimeter','C. confining cordon','D. delimiting frontier'],
+   ans:'A',
+   explain:'"boundary" (n): ranh giới, đường phân cách, nơi một thứ kết thúc và thứ khác bắt đầu. || A "seamless continuum": sự liên tục liền mạch, không có điểm đứt gãy hay ranh giới. "seamless" = liền mạch (không đường nối) + "continuum" = chuỗi liên tục → Trái nghĩa hoàn toàn với boundary → ✓. || B "demarcating perimeter": đường ranh giới phân định → Đồng nghĩa (demarcate = phân định ranh giới). || C "confining cordon": vành đai giới hạn, hạn chế → Đồng nghĩa (gần với barrier/boundary). || D "delimiting frontier": biên giới phân định → Đồng nghĩa (delimit = phân định ranh giới). || Ngữ cảnh câu: "the boundary between conviction and opportunism is precarious" – ranh giới giữa niềm tin chân thật và cơ hội chủ nghĩa mong manh → "seamless continuum" thể hiện sự hòa trộn không phân biệt được.',
+   tip:'🔑 Nhận diện từ ĐỒNG nghĩa với boundary: demarcating (phân định), confining (giới hạn), delimiting (phân định), perimeter/frontier/cordon đều chỉ ĐƯỜNG PHÂN CHIA. Chỉ "seamless continuum" = KHÔNG CÓ ranh giới → Trái nghĩa.'},
+  {num:'38b',type:'TRUE/FALSE',
+   q:'Which of the following is TRUE according to paragraph 4 (digital traceability / corporate ethics)?',
+   opts:['A. Proliferating information flows render NGO scorecards and forensic journalism redundant, allowing firms to manage exposure through siloed compliance units.','B. Politicized demand attenuates reputational risk from inconsistencies because segmented audiences ensure sympathetic reception somewhere.','C. Because leaks, scorecards, and investigative reporting make claims instantly auditable, the grace window for reconciling rhetoric with operations contracts, obliging cross-functional integration; consistency operates as a core risk-control requirement rather than a discretionary moral flourish.','D. Digital traceability empowers marketing to sustain narrative leadership even when operations lag, since stakeholders chiefly reward aspirational intent.'],
+   ans:'C',
+   explain:'Câu văn gốc đoạn 4: (1) "Digital traceability has collapsed corporate opacity: leaked decks, NGO scorecards, and forensic journalism make promises instantly comparable to outcomes." (2) "This compresses the time in which firms can reconcile talk and practice, forcing strategy to integrate compliance, HR, marketing, and procurement." (3) "Consistency is no longer a moral flourish; it is a condition of risk management in markets where political identities shape demand." || C tổng hợp đúng cả 3 ý → ✓. || A "render NGO scorecards redundant" → Sai hoàn toàn, bài nói chính các công cụ này tạo ra trách nhiệm giải trình. || B "attenuates reputational risk... sympathetic reception somewhere" → Sai, bài nói ngược lại: sự nhất quán là điều kiện bắt buộc. || D "marketing sustains narrative leadership even when operations lag" → Sai, bài nói "compresses the time" – không thể nói và làm khác nhau lâu dài.',
+   tip:'🔑 Ba câu chìa khóa của đoạn: "collapsed opacity" → thông tin minh bạch; "compresses the time" → không thể trì hoãn; "no longer a moral flourish" → bắt buộc, không tùy chọn. C phản ánh đầy đủ cả ba điểm này.'},
+];
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let state = {
+  page: 'home',
+  topicId: null,
+  subtopic: null, // 'words'|'phrasal'|'idioms'
+  studyMode: null, // 'flashcard'|'quiz'|'match'
+  advTopicId: null,
+  fcIndex: 0, fcFlipped: false,
+  qIndex: 0, qAnswered: false, qScore: 0,
+  qDone: false,
+  matchLeft: null, matchPaired: {},
+  mkIndex: 0, mkAnswered: false, mkScore: 0, mkDone: false,
+  gramOpen: {},
+  quoteIndex: Math.floor(Math.random()*QUOTES.length),
+  filterTag: 'all',
+};
+
+function getQuote(){
+  const q = QUOTES[state.quoteIndex % QUOTES.length];
+  state.quoteIndex++;
+  return q;
+}
+function quoteFooter(){return `<div class="quote-footer"><div class="quote-text">${getQuote()}</div></div>`;}
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+function navigate(page, params={}){
+  state.page = page;
+  Object.assign(state, params);
+  // Reset study state
+  state.fcIndex=0; state.fcFlipped=false;
+  state.qIndex=0; state.qAnswered=false; state.qScore=0; state.qDone=false;
+  state.matchLeft=null; state.matchPaired={};
+  state.mkIndex=0; state.mkAnswered=false; state.mkScore=0; state.mkDone=false;
+  render();
+}
+function setNavActive(id){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const el = document.getElementById('nav-'+id);
+  if(el) el.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════
+function render(){
+  const topbarTitle = document.getElementById('topbar-title');
+  const breadcrumb = document.getElementById('breadcrumb');
+  const page = document.getElementById('page');
+  
+  let html='', title='', bc='';
+  
+  if(state.page==='home'){
+    setNavActive('home');
+    title='Trang chủ'; bc='';
+    html=renderHome();
+  } else if(state.page==='vocab'){
+    setNavActive('vocab');
+    title='Từ vựng theo chủ đề'; bc='Học liệu › Từ vựng';
+    html=renderVocabList();
+  } else if(state.page==='vocab-topic'){
+    setNavActive('vocab');
+    const t=VOCAB_TOPICS.find(t=>t.id===state.topicId);
+    title=t?t.name:''; bc=`Từ vựng › ${t?t.name:''}`;
+    html=renderVocabTopic(t);
+  } else if(state.page==='vocab-study'){
+    setNavActive('vocab');
+    const t=VOCAB_TOPICS.find(t=>t.id===state.topicId);
+    title=`${t?t.name:''} – ${state.studyMode}`; bc=`Từ vựng › ${t?t.name:''} › ${state.studyMode}`;
+    html=renderStudy(t,state.subtopic,state.studyMode);
+  } else if(state.page==='phrasal'){
+    setNavActive('phrasal');
+    title='Phrasal Verbs'; bc='Học liệu › Phrasal Verbs';
+    html=renderPhrasalAll();
+  } else if(state.page==='idioms'){
+    setNavActive('idioms');
+    title='Idioms'; bc='Học liệu › Idioms';
+    html=renderIdiomsAll();
+  } else if(state.page==='advanced'){
+    setNavActive('advanced');
+    title='Từ vựng nâng cao'; bc='Học liệu › Từ vựng nâng cao';
+    html=renderAdvancedList();
+  } else if(state.page==='adv-topic'){
+    setNavActive('advanced');
+    const t=ADVANCED_TOPICS.find(t=>t.id===state.advTopicId);
+    title=t?t.name:''; bc=`Nâng cao › ${t?t.name:''}`;
+    html=renderAdvancedTopic(t);
+  } else if(state.page==='adv-study'){
+    setNavActive('advanced');
+    const t=ADVANCED_TOPICS.find(t=>t.id===state.advTopicId);
+    title=`${t?t.name:''} – ${state.studyMode}`; bc=`Nâng cao › ${t?t.name:''}`;
+    html=renderStudy(t,'words',state.studyMode);
+  } else if(state.page==='grammar'){
+    setNavActive('grammar');
+    title='Ngữ pháp THPTQG'; bc='Luyện tập › Ngữ pháp';
+    html=renderGrammar();
+  } else if(state.page==='mistakes'){
+    setNavActive('mistakes');
+    title='Luyện lỗi sai'; bc='Luyện tập › Lỗi sai';
+    html=renderMistakes();
+  } else if(state.page==='mistakes-practice'){
+    setNavActive('mistakes');
+    title='Luyện tập – Lỗi sai'; bc='Luyện tập › Lỗi sai › Thực hành';
+    html=renderMistakesPractice();
+  }
+  
+  topbarTitle.textContent=title;
+  breadcrumb.innerHTML=bc?`<span>${bc}</span>`:'';
+  page.innerHTML=`<div class="fade-in">${html}</div>`;
+  page.scrollTop=0;
+}
+
+// ═══════════════════════════════════════════
+//  HOME
+// ═══════════════════════════════════════════
+function renderHome(){
+  const totalWords = VOCAB_TOPICS.reduce((a,t)=>a+t.words.length+t.phrasal.length+t.idioms.length,0)
+                  + ADVANCED_TOPICS.reduce((a,t)=>a+t.words.length,0);
+  return `
+<div class="hero">
+  <h2>Xin chào, <span>Phương Linh</span> 👋</h2>
+  <p>Hành trình chinh phục THPTQG Tiếng Anh bắt đầu từ đây. Hãy học đều mỗi ngày để tích lũy kiến thức vững chắc!</p>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">${VOCAB_TOPICS.length + ADVANCED_TOPICS.length}</div><div class="stat-lbl">Chủ đề</div></div>
+    <div class="stat-item"><div class="stat-num">${totalWords}</div><div class="stat-lbl">Từ & cụm từ</div></div>
+    <div class="stat-item"><div class="stat-num">${GRAMMAR_TOPICS.length}</div><div class="stat-lbl">Chuyên đề ngữ pháp</div></div>
+    <div class="stat-item"><div class="stat-num">${MISTAKES.length}</div><div class="stat-lbl">Câu luyện sai</div></div>
+  </div>
+</div>
+
+<div class="section-hdr"><h3>Truy cập nhanh</h3></div>
+<div class="grid-4" style="margin-bottom:24px">
+  <div class="card" onclick="navigate('vocab')">
+    <div class="card-icon">📖</div>
+    <div class="card-title">Từ vựng chủ đề</div>
+    <div class="card-sub">9 chủ đề THPTQG</div>
+    <div class="card-count cc-sky">📝 ${VOCAB_TOPICS.reduce((a,t)=>a+t.words.length,0)} từ cốt lõi</div>
+  </div>
+  <div class="card" onclick="navigate('phrasal')">
+    <div class="card-icon">⚡</div>
+    <div class="card-title">Phrasal Verbs</div>
+    <div class="card-sub">Cụm động từ thông dụng</div>
+    <div class="card-count cc-gold">📝 ${VOCAB_TOPICS.reduce((a,t)=>a+t.phrasal.length,0)} phrasal verbs</div>
+  </div>
+  <div class="card" onclick="navigate('grammar')">
+    <div class="card-icon">📐</div>
+    <div class="card-title">Ngữ pháp</div>
+    <div class="card-sub">Điền khuyết, đảo ngữ, wish...</div>
+    <div class="card-count cc-violet">📝 9 chuyên đề ngữ pháp</div>
+  </div>
+  <div class="card" onclick="navigate('mistakes')">
+    <div class="card-icon">🎯</div>
+    <div class="card-title">Luyện lỗi sai</div>
+    <div class="card-sub">Các câu đã sai có đáp án & mẹo</div>
+    <div class="card-count cc-rose">🔥 ${MISTAKES.length} câu hỏi</div>
+  </div>
+</div>
+
+<div class="section-hdr"><h3>Chủ đề từ vựng</h3><button class="btn btn-outline btn-sm" onclick="navigate('vocab')">Xem tất cả →</button></div>
+<div class="grid-3" style="margin-bottom:24px">
+${VOCAB_TOPICS.map(t=>`
+  <div class="card" onclick="navigate('vocab-topic',{topicId:'${t.id}'})">
+    <div class="card-icon">${t.emoji}</div>
+    <div class="card-title">${t.name}</div>
+    <div class="card-sub">${t.words.length} từ · ${t.phrasal.length} phrasal · ${t.idioms.length} idioms</div>
+    <div class="card-count cc-${t.color}">Bắt đầu học →</div>
+  </div>`).join('')}
+</div>
+
+<div class="section-hdr"><h3>Từ vựng nâng cao</h3><button class="btn btn-outline btn-sm" onclick="navigate('advanced')">Xem tất cả →</button></div>
+<div class="grid-4" style="margin-bottom:24px">
+${ADVANCED_TOPICS.map(t=>`
+  <div class="card" onclick="navigate('adv-topic',{advTopicId:'${t.id}'})">
+    <div class="card-icon">${t.emoji}</div>
+    <div class="card-title" style="font-size:13px">${t.name}</div>
+    <div class="card-sub">${t.words.length} từ vựng học thuật</div>
+  </div>`).join('')}
+</div>
+${quoteFooter()}
+`;
+}
+
+// ═══════════════════════════════════════════
+//  VOCAB LIST
+// ═══════════════════════════════════════════
+function renderVocabList(){
+  return `
+<div class="section-hdr"><h3>📖 Từ vựng theo chủ đề</h3></div>
+<div class="grid-3">
+${VOCAB_TOPICS.map(t=>`
+  <div class="card" onclick="navigate('vocab-topic',{topicId:'${t.id}'})">
+    <div class="card-icon">${t.emoji}</div>
+    <div class="card-title">${t.name}</div>
+    <div class="card-sub">${t.words.length} từ cốt lõi · ${t.phrasal.length} phrasal verbs · ${t.idioms.length} idioms</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <span class="card-count cc-${t.color}">Từ vựng</span>
+      <span class="card-count cc-gold">Phrasal</span>
+      <span class="card-count cc-violet">Idioms</span>
+    </div>
+  </div>`).join('')}
+</div>
+${quoteFooter()}`;
+}
+
+// ═══════════════════════════════════════════
+//  VOCAB TOPIC DETAIL
+// ═══════════════════════════════════════════
+function renderVocabTopic(t){
+  if(!t) return '<p>Không tìm thấy chủ đề.</p>';
+  return `
+<button class="back-btn" onclick="navigate('vocab')">← Quay lại</button>
+<div class="section-hdr">
+  <h3>${t.emoji} ${t.name}</h3>
+  <span class="card-count cc-${t.color}">${t.words.length + t.phrasal.length + t.idioms.length} mục từ</span>
+</div>
+
+<div class="tabs">
+  <div class="tab active" id="tab-words" onclick="switchTab('words',this)">📚 Từ cốt lõi (${t.words.length})</div>
+  <div class="tab" id="tab-phrasal" onclick="switchTab('phrasal',this)">⚡ Phrasal Verbs (${t.phrasal.length})</div>
+  <div class="tab" id="tab-idioms" onclick="switchTab('idioms',this)">✨ Idioms (${t.idioms.length})</div>
+</div>
+
+<div id="content-words">
+  <div class="mode-bar">
+    <button class="btn btn-sky btn-sm" onclick="navigate('vocab-study',{topicId:'${t.id}',subtopic:'words',studyMode:'flashcard'})">🃏 Flashcard</button>
+    <button class="btn btn-gold btn-sm" onclick="navigate('vocab-study',{topicId:'${t.id}',subtopic:'words',studyMode:'quiz'})">📝 Quiz</button>
+    <button class="btn btn-violet btn-sm" onclick="navigate('vocab-study',{topicId:'${t.id}',subtopic:'words',studyMode:'match'})">🔗 Ghép cặp</button>
+  </div>
+  <table class="word-table">
+    <thead><tr><th>TỪ VỰNG</th><th>NGHĨA</th><th>LOẠI TỪ</th><th>ĐỒNG NGHĨA</th><th>TRÁI NGHĨA</th></tr></thead>
+    <tbody>
+    ${t.words.map(w=>`
+      <tr class="word-row">
+        <td><div style="display:flex;align-items:center;gap:7px"><button class="speak-btn" onclick="event.stopPropagation();speak('${w.w.replace(/'/g,"\\'")}',this)" title="Nghe phát âm">🔊</button><div><div class="word-text">${w.w}</div><div class="word-pron">${w.pr}</div></div></div></td>
+        <td>${w.vi}</td>
+        <td><span class="word-type">${w.type}</span></td>
+        <td><span class="word-syn">${w.syn.join(', ')||'—'}</span></td>
+        <td><span class="word-ant">${w.ant.join(', ')||'—'}</span></td>
+      </tr>`).join('')}
+    </tbody>
+  </table>
+</div>
+
+<div id="content-phrasal" style="display:none">
+  <div class="mode-bar">
+    <button class="btn btn-sky btn-sm" onclick="navigate('vocab-study',{topicId:'${t.id}',subtopic:'phrasal',studyMode:'flashcard'})">🃏 Flashcard</button>
+    <button class="btn btn-gold btn-sm" onclick="navigate('vocab-study',{topicId:'${t.id}',subtopic:'phrasal',studyMode:'quiz'})">📝 Quiz</button>
+  </div>
+  <table class="word-table">
+    <thead><tr><th>PHRASAL VERB</th><th>NGHĨA</th><th>VÍ DỤ</th></tr></thead>
+    <tbody>
+    ${t.phrasal.map(p=>`
+      <tr class="word-row">
+        <td><div style="display:flex;align-items:center;gap:7px"><button class="speak-btn" onclick="event.stopPropagation();speak('${p.pv.replace(/'/g,"\\'")}',this)" title="Nghe phát âm">🔊</button><span class="word-text">${p.pv}</span></div></td>
+        <td>${p.vi}</td>
+        <td style="font-size:12px;color:var(--muted);font-style:italic">${p.ex}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>
+</div>
+
+<div id="content-idioms" style="display:none">
+  <div class="mode-bar">
+    <button class="btn btn-sky btn-sm" onclick="navigate('vocab-study',{topicId:'${t.id}',subtopic:'idioms',studyMode:'flashcard'})">🃏 Flashcard</button>
+    <button class="btn btn-gold btn-sm" onclick="navigate('vocab-study',{topicId:'${t.id}',subtopic:'idioms',studyMode:'quiz'})">📝 Quiz</button>
+  </div>
+  <table class="word-table">
+    <thead><tr><th>IDIOM</th><th>NGHĨA</th><th>VÍ DỤ</th></tr></thead>
+    <tbody>
+    ${t.idioms.map(id=>`
+      <tr class="word-row idiom-row">
+        <td><div style="display:flex;align-items:center;gap:7px"><button class="speak-btn" onclick="event.stopPropagation();speak('${id.id.replace(/'/g,"\\'")}',this)" title="Nghe phát âm">🔊</button><span class="idiom-text">${id.id}</span></div></td>
+        <td>${id.vi}</td>
+        <td style="font-size:12px;color:var(--muted);font-style:italic">${id.ex}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>
+</div>
+${quoteFooter()}`;
+}
+
+function switchTab(name, el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('content-words').style.display='none';
+  document.getElementById('content-phrasal').style.display='none';
+  document.getElementById('content-idioms').style.display='none';
+  document.getElementById('content-'+name).style.display='block';
+}
+
+// ═══════════════════════════════════════════
+//  STUDY MODES
+// ═══════════════════════════════════════════
+function getItems(t, subtopic){
+  if(!t) return [];
+  if(subtopic==='words' || subtopic===undefined) return t.words||[];
+  if(subtopic==='phrasal') return t.phrasal||[];
+  if(subtopic==='idioms') return t.idioms||[];
+  return t.words||[];
+}
+
+function renderStudy(t, subtopic, mode){
+  if(!t) return '<p>Không tìm thấy.</p>';
+  const isAdv = !!state.advTopicId;
+  const backPage = isAdv ? 'adv-topic' : 'vocab-topic';
+  const backParam = isAdv ? {advTopicId:state.advTopicId} : {topicId:state.topicId};
+  const backLabel = isAdv ? '← Quay lại chủ đề' : '← Quay lại chủ đề';
+  
+  let modeHTML='';
+  if(mode==='flashcard') modeHTML=renderFlashcard(t,subtopic);
+  else if(mode==='quiz') modeHTML=renderQuiz(t,subtopic);
+  else if(mode==='match') modeHTML=renderMatch(t,subtopic);
+  
+  return `
+<button class="back-btn" onclick="navigate('${backPage}',${JSON.stringify(backParam)})">${backLabel}</button>
+<div class="section-hdr"><h3>${t.emoji||'📖'} ${t.name} – ${mode==='flashcard'?'Flashcard':mode==='quiz'?'Quiz':'Ghép cặp'}</h3></div>
+<div class="mode-bar">
+  <button class="btn ${mode==='flashcard'?'btn-sky':'btn-outline'} btn-sm" onclick="navigate('${isAdv?'adv-study':'vocab-study'}',{${isAdv?'advTopicId':'topicId'}:'${isAdv?state.advTopicId:state.topicId}',subtopic:'${subtopic||'words'}',studyMode:'flashcard'})">🃏 Flashcard</button>
+  <button class="btn ${mode==='quiz'?'btn-gold':'btn-outline'} btn-sm" onclick="navigate('${isAdv?'adv-study':'vocab-study'}',{${isAdv?'advTopicId':'topicId'}:'${isAdv?state.advTopicId:state.topicId}',subtopic:'${subtopic||'words'}',studyMode:'quiz'})">📝 Quiz</button>
+  ${subtopic==='words'||isAdv?`<button class="btn ${mode==='match'?'btn-violet':'btn-outline'} btn-sm" onclick="navigate('${isAdv?'adv-study':'vocab-study'}',{${isAdv?'advTopicId':'topicId'}:'${isAdv?state.advTopicId:state.topicId}',subtopic:'${subtopic||'words'}',studyMode:'match'})">🔗 Ghép cặp</button>`:''}
+</div>
+${modeHTML}
+${quoteFooter()}`;
+}
+
+function renderFlashcard(t, subtopic){
+  const items = getItems(t, subtopic);
+  if(!items.length) return '<p>Không có dữ liệu.</p>';
+  const i = state.fcIndex % items.length;
+  const item = items[i];
+  const isWord = subtopic==='words'||!subtopic;
+  const isPV = subtopic==='phrasal';
+  
+  let front='', back='';
+  if(isWord){
+    front=`<div class="fc-word">${item.w}</div><div class="fc-pron">${item.pr||''}</div><div class="fc-type">${item.type||''}</div><button class="fc-speak" onclick="event.stopPropagation();speak('${(item.w||'').replace(/'/g,"\\'")}',this)">🔊 Nghe phát âm</button>`;
+    back=`<div class="fc-meaning">${item.vi}</div><div class="fc-example">${item.ex||''}</div>`;
+  } else if(isPV){
+    front=`<div class="fc-word" style="font-size:24px">${item.pv}</div><button class="fc-speak" onclick="event.stopPropagation();speak('${(item.pv||'').replace(/'/g,"\\'")}',this)">🔊 Nghe phát âm</button>`;
+    back=`<div class="fc-meaning">${item.vi}</div><div class="fc-example">${item.ex||''}</div>`;
+  } else {
+    front=`<div class="fc-word" style="font-size:20px">${item.id}</div><button class="fc-speak" onclick="event.stopPropagation();speak('${(item.id||'').replace(/'/g,"\\'")}',this)">🔊 Nghe phát âm</button>`;
+    back=`<div class="fc-meaning">${item.vi}</div><div class="fc-example">${item.ex||''}</div>`;
+  }
+  
+  return `<div class="study-wrap">
+    <div class="flashcard-wrap">
+      <div class="flashcard${state.fcFlipped?' flipped':''}" id="fc" onclick="fcFlip()">
+        <div class="fc-face fc-front">${front}</div>
+        <div class="fc-face fc-back">${back}</div>
+      </div>
+      <div class="fc-nav">
+        <button class="btn btn-outline btn-sm" onclick="fcPrev()">← Trước</button>
+        <span class="fc-counter">${i+1} / ${items.length}</span>
+        <button class="btn btn-gold btn-sm" onclick="fcNext()">Tiếp →</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function fcFlip(){ state.fcFlipped=!state.fcFlipped; render(); }
+function fcNext(){ state.fcFlipped=false; state.fcIndex++; render(); }
+function fcPrev(){ state.fcFlipped=false; if(state.fcIndex>0)state.fcIndex--; render(); }
+
+function renderQuiz(t, subtopic){
+  const items = getItems(t, subtopic);
+  if(!items.length) return '<p>Không có dữ liệu.</p>';
+  if(state.qDone){
+    const pct=Math.round(state.qScore/Math.min(10,items.length)*100);
+    return `<div class="result-wrap">
+      <div class="result-emoji">${pct>=80?'🏆':pct>=60?'😊':'💪'}</div>
+      <div class="result-score">${state.qScore}/${Math.min(10,items.length)}</div>
+      <div class="result-msg">${pct>=80?'Xuất sắc! Bạn đã nắm vững chủ đề này.':pct>=60?'Khá tốt! Hãy ôn lại các câu sai.':'Tiếp tục cố gắng! Ôn lại từ đầu nhé.'}</div>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-gold" onclick="resetQuiz()">🔄 Làm lại</button>
+      </div>
+    </div>`;
+  }
+  
+  const total=Math.min(10,items.length);
+  const i=state.qIndex;
+  const item=items[i%items.length];
+  const isWord=subtopic==='words'||!subtopic;
+  const isPV=subtopic==='phrasal';
+  
+  // Generate 4 options
+  let question='', correctAns='', wrongPool=[];
+  if(isWord){
+    question=`Nghĩa của "<strong style="color:var(--sky)">${item.w}</strong>" (${item.type}) là gì?`;
+    correctAns=item.vi;
+    wrongPool=items.filter((_,idx)=>idx!==i%items.length).map(w=>w.vi);
+  } else if(isPV){
+    question=`Phrasal verb "<strong style="color:var(--sky)">${item.pv}</strong>" có nghĩa là gì?`;
+    correctAns=item.vi;
+    wrongPool=items.filter((_,idx)=>idx!==i%items.length).map(w=>w.vi);
+  } else {
+    question=`Idiom "<strong style="color:var(--violet)">${item.id}</strong>" có nghĩa là gì?`;
+    correctAns=item.vi;
+    wrongPool=items.filter((_,idx)=>idx!==i%items.length).map(w=>w.vi);
+  }
+  
+  let opts=[correctAns];
+  const shuffled=[...wrongPool].sort(()=>Math.random()-.5);
+  opts=opts.concat(shuffled.slice(0,3));
+  opts=opts.sort(()=>Math.random()-.5);
+  
+  return `
+    <div class="quiz-progress">
+      <span class="qp-text">Câu ${i+1}/${total}</span>
+      <div style="flex:1;max-width:200px"><div class="progress-bar"><div class="progress-fill" style="width:${i/total*100}%"></div></div></div>
+      <span class="score-badge">⭐ ${state.qScore}</span>
+    </div>
+    <div class="quiz-q">${question}</div>
+    <div class="quiz-options" id="qopts">
+    ${opts.map((o,oi)=>`<button class="quiz-opt${state.qAnswered?(o===correctAns?' correct':(document.querySelector('.quiz-opt.wrong')&&document.querySelector('.quiz-opt.wrong').textContent===o?' wrong':'')):''}${state.qAnswered?' disabled':''}" onclick="checkQuiz(this,'${esc(o)}','${esc(correctAns)}')">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-explain${state.qAnswered?' show':''}" id="qexplain">
+      <div class="quiz-tip">💡 Đáp án đúng: ${correctAns}</div>
+      ${isWord?`Ví dụ: <em>${item.ex||''}</em>`:isPV?`Ví dụ: <em>${item.ex||''}</em>`:`Ví dụ: <em>${item.ex||''}</em>`}
+    </div>
+    ${state.qAnswered?`<div style="margin-top:14px;text-align:right"><button class="btn btn-gold" onclick="nextQuiz(${total})">${i+1>=total?'Xem kết quả →':'Tiếp theo →'}</button></div>`:''}`;
+}
+
+function esc(s){return (s||'').replace(/'/g,"&#39;").replace(/"/g,'&quot;');}
+function checkQuiz(btn,ans,correct){
+  if(state.qAnswered) return;
+  state.qAnswered=true;
+  const isCorrect=ans===correct;
+  if(isCorrect){state.qScore++;btn.classList.add('correct');}
+  else{btn.classList.add('wrong');}
+  document.querySelectorAll('.quiz-opt').forEach(b=>{
+    b.classList.add('disabled');
+    if(b.textContent.trim()===correct&&!b.classList.contains('wrong')) b.classList.add('correct');
+  });
+  const ex=document.getElementById('qexplain');
+  if(ex) ex.classList.add('show');
+  // Re-render to show next button
+  render();
+}
+function nextQuiz(total){
+  const i=state.qIndex;
+  if(i+1>=total){ state.qDone=true; render(); return; }
+  state.qIndex++;
+  state.qAnswered=false;
+  render();
+}
+function resetQuiz(){ state.qIndex=0;state.qAnswered=false;state.qScore=0;state.qDone=false; render(); }
+
+function renderMatch(t, subtopic){
+  const items = (getItems(t, subtopic)||[]).slice(0,8);
+  if(items.length<4) return '<p>Cần ít nhất 4 từ để ghép cặp.</p>';
+  const matched=state.matchPaired||{};
+  const matchedCount=Object.keys(matched).length;
+  const isWord=subtopic==='words'||!subtopic;
+  
+  if(matchedCount>=items.length){
+    return `<div class="result-wrap">
+      <div class="result-emoji">🎉</div>
+      <div class="result-score">${items.length}/${items.length}</div>
+      <div class="result-msg">Hoàn thành! Bạn đã ghép đúng tất cả các cặp.</div>
+      <div style="margin-top:20px"><button class="btn btn-gold" onclick="resetMatch()">🔄 Chơi lại</button></div>
+    </div>`;
+  }
+  
+  const rights=items.map(w=>isWord?w.vi:(w.vi));
+  const shuffledRights=[...rights].sort(()=>Math.random()-.5);
+  const savedOrder = state.matchOrder || (state.matchOrder=[...shuffledRights]);
+  
+  return `
+    <div style="margin-bottom:14px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:13px;color:var(--muted)">Ghép cặp: ${matchedCount}/${items.length} cặp đúng</span>
+      <div style="flex:1;max-width:200px"><div class="progress-bar"><div class="progress-fill" style="width:${matchedCount/items.length*100}%"></div></div></div>
+    </div>
+    <div class="match-grid">
+      <div>
+        <h4>TỪ / CỤM TỪ</h4>
+        ${items.map((w,i)=>{
+          const wText=isWord?w.w:w.pv||w.id;
+          const isMatched=!!matched[i];
+          const isSel=state.matchLeft===i;
+          return `<div class="match-item${isMatched?' matched':isSel?' selected':''}" id="ml${i}" onclick="${isMatched?'':''};matchLeft(${i})">${wText}</div>`;
+        }).join('')}
+      </div>
+      <div>
+        <h4>NGHĨA TIẾNG VIỆT</h4>
+        ${savedOrder.map((vi,i)=>{
+          const isMatched=Object.values(matched).includes(vi);
+          const isSel=state.matchLeft!==null&&items[state.matchLeft]&&(isWord?items[state.matchLeft].vi===vi:items[state.matchLeft].vi===vi);
+          return `<div class="match-item${isMatched?' matched':''}" id="mr${i}" onclick="${isMatched?'':''};matchRight('${esc(vi)}')">${vi}</div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div style="margin-top:12px;text-align:right"><button class="btn btn-outline btn-sm" onclick="resetMatch()">↺ Sắp xếp lại</button></div>`;
+}
+
+function matchLeft(i){
+  if(state.matchPaired&&state.matchPaired[i]) return;
+  state.matchLeft=i;
+  render();
+}
+function matchRight(vi){
+  if(state.matchLeft===null) return;
+  const items=getItems(state.topicId?VOCAB_TOPICS.find(t=>t.id===state.topicId):ADVANCED_TOPICS.find(t=>t.id===state.advTopicId), state.subtopic);
+  const correct=(state.subtopic==='words'||!state.subtopic)?items[state.matchLeft].vi:items[state.matchLeft].vi;
+  if(vi===correct){
+    if(!state.matchPaired) state.matchPaired={};
+    state.matchPaired[state.matchLeft]=vi;
+    state.matchLeft=null;
+    showToast('✅ Đúng rồi!');
+  } else {
+    showToast('❌ Chưa đúng, thử lại!');
+    state.matchLeft=null;
+  }
+  render();
+}
+function resetMatch(){state.matchPaired={};state.matchLeft=null;state.matchOrder=null;render();}
+
+// ═══════════════════════════════════════════
+//  PHRASAL ALL
+// ═══════════════════════════════════════════
+function renderPhrasalAll(){
+  const tags=['all',...VOCAB_TOPICS.map(t=>t.id)];
+  const sel=state.filterTag||'all';
+  const topics=sel==='all'?VOCAB_TOPICS:VOCAB_TOPICS.filter(t=>t.id===sel);
+  return `
+<div class="section-hdr"><h3>⚡ Tất cả Phrasal Verbs</h3></div>
+<div class="tag-row">
+  ${VOCAB_TOPICS.map(t=>`<div class="tag gold${sel===t.id?' active':''}" onclick="setFilter('${t.id}')">${t.emoji} ${t.name}</div>`).join('')}
+  <div class="tag gold${sel==='all'?' active':''}" onclick="setFilter('all')">Tất cả</div>
+</div>
+<table class="word-table">
+  <thead><tr><th>PHRASAL VERB</th><th>NGHĨA</th><th>CHỦ ĐỀ</th><th>VÍ DỤ</th></tr></thead>
+  <tbody>
+  ${topics.flatMap(t=>t.phrasal.map(p=>`
+    <tr class="word-row">
+      <td><div style="display:flex;align-items:center;gap:7px"><button class="speak-btn" onclick="event.stopPropagation();speak('${p.pv.replace(/'/g,"\\'")}',this)">🔊</button><span class="word-text">${p.pv}</span></div></td>
+      <td>${p.vi}</td>
+      <td><span class="word-type">${t.name}</span></td>
+      <td style="font-size:12px;color:var(--muted);font-style:italic">${p.ex}</td>
+    </tr>`)).join('')}
+  </tbody>
+</table>
+${quoteFooter()}`;
+}
+function setFilter(tag){state.filterTag=tag;render();}
+
+// ═══════════════════════════════════════════
+//  IDIOMS ALL
+// ═══════════════════════════════════════════
+function renderIdiomsAll(){
+  const sel=state.filterTag||'all';
+  const topics=sel==='all'?VOCAB_TOPICS:VOCAB_TOPICS.filter(t=>t.id===sel);
+  return `
+<div class="section-hdr"><h3>✨ Tất cả Idioms</h3></div>
+<div class="tag-row">
+  ${VOCAB_TOPICS.map(t=>`<div class="tag gold${sel===t.id?' active':''}" onclick="setFilter('${t.id}')">${t.emoji} ${t.name}</div>`).join('')}
+  <div class="tag gold${sel==='all'?' active':''}" onclick="setFilter('all')">Tất cả</div>
+</div>
+<table class="word-table">
+  <thead><tr><th>IDIOM</th><th>NGHĨA</th><th>CHỦ ĐỀ</th><th>VÍ DỤ</th></tr></thead>
+  <tbody>
+  ${topics.flatMap(t=>t.idioms.map(id=>`
+    <tr class="word-row">
+      <td><div style="display:flex;align-items:center;gap:7px"><button class="speak-btn" onclick="event.stopPropagation();speak('${id.id.replace(/'/g,"\\'")}',this)">🔊</button><span class="idiom-text">${id.id}</span></div></td>
+      <td>${id.vi}</td>
+      <td><span class="word-type">${t.name}</span></td>
+      <td style="font-size:12px;color:var(--muted);font-style:italic">${id.ex}</td>
+    </tr>`)).join('')}
+  </tbody>
+</table>
+${quoteFooter()}`;
+}
+
+// ═══════════════════════════════════════════
+//  ADVANCED
+// ═══════════════════════════════════════════
+function renderAdvancedList(){
+  return `
+<div class="section-hdr"><h3>🚀 Từ vựng nâng cao</h3></div>
+<p style="color:var(--muted);font-size:13px;margin-bottom:20px">Từ vựng học thuật cao cấp từ các bài đọc IELTS/THPTQG. Nắm vững những từ này để đọc hiểu hiệu quả hơn.</p>
+<div class="grid-2">
+${ADVANCED_TOPICS.map(t=>`
+  <div class="card" onclick="navigate('adv-topic',{advTopicId:'${t.id}'})">
+    <div class="card-icon">${t.emoji}</div>
+    <div class="card-title">${t.name}</div>
+    <div class="card-sub">${t.words.length} từ vựng học thuật</div>
+    <div class="card-count cc-sky">Xem danh sách →</div>
+  </div>`).join('')}
+</div>
+${quoteFooter()}`;
+}
+
+function renderAdvancedTopic(t){
+  if(!t) return '<p>Không tìm thấy.</p>';
+  return `
+<button class="back-btn" onclick="navigate('advanced')">← Quay lại</button>
+<div class="section-hdr">
+  <h3>${t.emoji} ${t.name}</h3>
+</div>
+<div class="mode-bar">
+  <button class="btn btn-sky btn-sm" onclick="navigate('adv-study',{advTopicId:'${t.id}',studyMode:'flashcard'})">🃏 Flashcard</button>
+  <button class="btn btn-gold btn-sm" onclick="navigate('adv-study',{advTopicId:'${t.id}',studyMode:'quiz'})">📝 Quiz</button>
+  <button class="btn btn-violet btn-sm" onclick="navigate('adv-study',{advTopicId:'${t.id}',studyMode:'match'})">🔗 Ghép cặp</button>
+</div>
+<table class="word-table">
+  <thead><tr><th>TỪ VỰNG</th><th>NGHĨA</th><th>LOẠI TỪ</th><th>ĐỒNG NGHĨA</th><th>TRÁI NGHĨA</th></tr></thead>
+  <tbody>
+  ${t.words.map(w=>`
+    <tr class="word-row">
+      <td><div style="display:flex;align-items:center;gap:7px"><button class="speak-btn" onclick="event.stopPropagation();speak('${w.w.replace(/'/g,"\\'")}',this)">🔊</button><div><div class="word-text">${w.w}</div><div class="word-pron">${w.pr||''}</div></div></div></td>
+      <td>${w.vi}</td>
+      <td><span class="word-type">${w.type||'n'}</span></td>
+      <td><span class="word-syn">${(w.syn||[]).join(', ')||'—'}</span></td>
+      <td><span class="word-ant">${(w.ant||[]).join(', ')||'—'}</span></td>
+    </tr>`).join('')}
+  </tbody>
+</table>
+${quoteFooter()}`;
+}
+
+// ═══════════════════════════════════════════
+//  GRAMMAR
+// ═══════════════════════════════════════════
+function renderGrammar(){
+  return `
+<div class="section-hdr"><h3>📐 Ngữ pháp THPTQG</h3></div>
+<p style="color:var(--muted);font-size:13px;margin-bottom:20px">Nhấn vào từng chuyên đề để xem chi tiết, ví dụ minh họa và mẹo làm bài.</p>
+${GRAMMAR_TOPICS.map((g,i)=>`
+  <div class="grammar-card${state.gramOpen[g.id]?' open':''}" onclick="toggleGram('${g.id}')">
+    <div class="gc-header">
+      <span>${i+1}. ${g.title}</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="gc-tag">${g.tag}</span>
+        <span style="color:var(--muted);font-size:18px">${state.gramOpen[g.id]?'▲':'▼'}</span>
+      </div>
+    </div>
+    <div class="gc-body">${g.content}</div>
+  </div>`).join('')}
+${quoteFooter()}`;
+}
+
+function toggleGram(id){
+  state.gramOpen[id]=!state.gramOpen[id];
+  render();
+}
+
+// ═══════════════════════════════════════════
+//  MISTAKES
+// ═══════════════════════════════════════════
+function renderMistakes(){
+  return `
+<div class="section-hdr">
+  <h3>🎯 Luyện lỗi sai</h3>
+  <button class="btn btn-gold btn-sm" onclick="navigate('mistakes-practice')">▶ Bắt đầu luyện tập</button>
+</div>
+<p style="color:var(--muted);font-size:13px;margin-bottom:20px">Tất cả ${MISTAKES.length} câu hỏi từ các đề thi, kèm đáp án đầy đủ và mẹo làm bài.</p>
+
+${MISTAKES.map((m,i)=>`
+  <div class="mistake-card">
+    <div class="mk-num">Câu ${m.num} · ${m.type}</div>
+    <div class="mk-q">${m.q}</div>
+    <div class="mk-opts">
+    ${m.opts.map(o=>`<div class="mk-opt${o.startsWith(m.ans+'.')||o===m.ans?' correct':''} disabled">${o}</div>`).join('')}
+    </div>
+    <div class="mk-explain show">
+      <div class="mk-explain-hdr">📖 Giải thích</div>
+      <div>${m.explain}</div>
+      <div class="mk-tip-hdr">🔑 Mẹo làm bài</div>
+      <div>${m.tip}</div>
+    </div>
+  </div>`).join('')}
+${quoteFooter()}`;
+}
+
+function renderMistakesPractice(){
+  if(state.mkDone){
+    const pct=Math.round(state.mkScore/MISTAKES.length*100);
+    return `<div class="result-wrap">
+      <div class="result-emoji">${pct>=80?'🏆':pct>=60?'😊':'💪'}</div>
+      <div class="result-score">${state.mkScore}/${MISTAKES.length}</div>
+      <div class="result-msg">${pct>=80?'Tuyệt vời! Bạn đã nắm chắc các lỗi sai phổ biến.':pct>=60?'Khá tốt! Xem lại phần giải thích các câu sai nhé.':'Tiếp tục ôn luyện! Hãy đọc kỹ phần giải thích.'}</div>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-gold" onclick="resetMK()">🔄 Làm lại</button>
+        <button class="btn btn-outline" onclick="navigate('mistakes')">📋 Xem đáp án</button>
+      </div>
+    </div>`;
+  }
+  
+  const i=state.mkIndex;
+  const m=MISTAKES[i];
+  
+  return `
+<button class="back-btn" onclick="navigate('mistakes')">← Quay lại danh sách</button>
+<div class="quiz-progress">
+  <span class="qp-text">Câu ${i+1}/${MISTAKES.length} · <span style="color:var(--sky)">${m.type}</span></span>
+  <div style="flex:1;max-width:300px"><div class="progress-bar"><div class="progress-fill" style="width:${i/MISTAKES.length*100}%"></div></div></div>
+  <span class="score-badge">⭐ ${state.mkScore}</span>
+</div>
+
+<div class="mistake-card" style="cursor:default">
+  <div class="mk-num">Câu ${m.num} · ${m.type}</div>
+  <div class="mk-q">${m.q}</div>
+  <div class="mk-opts" id="mkopts">
+  ${m.opts.map((o,oi)=>`<button class="mk-opt${state.mkAnswered?(o.startsWith(m.ans+'.')||o===m.ans?' correct':(state.selectedOpt===oi&&o!==m.ans?' wrong':'')):''}${state.mkAnswered?' disabled':''}" onclick="checkMK(this,${oi},'${esc(o)}','${esc(m.ans)}')">${o}</button>`).join('')}
+  </div>
+  <div class="mk-explain${state.mkAnswered?' show':''}" id="mkexplain">
+    <div class="mk-explain-hdr">📖 Giải thích</div>
+    <div>${m.explain}</div>
+    <div class="mk-tip-hdr">🔑 Mẹo làm bài</div>
+    <div>${m.tip}</div>
+  </div>
+</div>
+${state.mkAnswered?`<div style="margin-top:14px;text-align:right"><button class="btn btn-gold" onclick="nextMK()">${i+1>=MISTAKES.length?'Xem kết quả →':'Tiếp theo →'}</button></div>`:''}
+${quoteFooter()}`;
+}
+
+function checkMK(btn,oi,ans,correct){
+  if(state.mkAnswered) return;
+  state.mkAnswered=true;
+  state.selectedOpt=oi;
+  const isCorrect=ans.startsWith(correct+'.')||ans===correct;
+  if(isCorrect){state.mkScore++;btn.classList.add('correct');}
+  else{btn.classList.add('wrong');}
+  document.querySelectorAll('.mk-opt').forEach(b=>{
+    b.classList.add('disabled');
+    if(b.textContent.trim().startsWith(correct+'.')||b.textContent.trim()===correct){
+      if(!b.classList.contains('wrong')) b.classList.add('correct');
+    }
+  });
+  const ex=document.getElementById('mkexplain');
+  if(ex) ex.classList.add('show');
+  render();
+}
+function nextMK(){
+  if(state.mkIndex+1>=MISTAKES.length){ state.mkDone=true; render(); return; }
+  state.mkIndex++;
+  state.mkAnswered=false;
+  state.selectedOpt=null;
+  render();
+}
+function resetMK(){state.mkIndex=0;state.mkAnswered=false;state.mkScore=0;state.mkDone=false;state.selectedOpt=null;render();}
+
+// ═══════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+render();
+</script>
+</body>
+</html>
